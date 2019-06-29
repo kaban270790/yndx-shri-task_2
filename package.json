@@ -1,0 +1,31 @@
+{
+  "name": "yndx-shri-task_2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "dev": "webpack --mode=development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaban270790/yndx-shri-task_2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kaban270790/yndx-shri-task_2/issues"
+  },
+  "homepage": "https://github.com/kaban270790/yndx-shri-task_2#readme",
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "babel-loader": "^8.0.6",
+    "expose-loader": "^0.7.5",
+    "fs": "0.0.1-security",
+    "mocha": "^6.1.4",
+    "webpack": "^4.35.0",
+    "webpack-cli": "^3.3.5",
+    "chai": "^4.2.0"
+  }
+}
