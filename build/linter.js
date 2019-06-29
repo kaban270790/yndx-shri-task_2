@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/linter.js?68c3");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/linter.js-exposed");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -149,6 +149,28 @@ eval("const ValidateError = __webpack_require__(/*! ./LinterError.js */ \"./src/
 /***/ (function(module, exports, __webpack_require__) {
 
 eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./FormError.js */ \"./src/Errors/FormError.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Errors/FormError.js-exposed?");
+
+/***/ }),
+
+/***/ "./src/Errors/FormHeaderSizeError.js":
+/*!*******************************************!*\
+  !*** ./src/Errors/FormHeaderSizeError.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const FormError = __webpack_require__(/*! ./FormError.js */ \"./src/Errors/FormError.js-exposed\");\r\nconst CODE = \"FORM.HEADER_TEXT_SIZE_IS_INVALID\";\r\nconst MESSAGE = \"Все текстовые блоки в заголовке формы (элемент header) должны быть со значением модификатора size на 2 шага больше эталонного размера\";\r\n\r\nclass FormContentItemIndentError extends FormError {\r\n    /**\r\n     * @param {string} obj\r\n     * @param {number} positionStart\r\n     */\r\n    constructor(obj, positionStart) {\r\n        super(obj, positionStart, CODE, MESSAGE);\r\n    }\r\n}\r\n\r\nmodule.exports = FormContentItemIndentError;\r\n\n\n//# sourceURL=webpack:///./src/Errors/FormHeaderSizeError.js?");
+
+/***/ }),
+
+/***/ "./src/Errors/FormHeaderSizeError.js-exposed":
+/*!***************************************************!*\
+  !*** ./src/Errors/FormHeaderSizeError.js-exposed ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./FormHeaderSizeError.js */ \"./src/Errors/FormHeaderSizeError.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Errors/FormHeaderSizeError.js-exposed?");
 
 /***/ }),
 
@@ -240,135 +262,135 @@ eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"li
 
 /***/ }),
 
-/***/ "./src/Validators/Form/contentItemsValidator.js":
+/***/ "./src/Validators/form/contentItemsValidator.js":
 /*!******************************************************!*\
-  !*** ./src/Validators/Form/contentItemsValidator.js ***!
+  !*** ./src/Validators/form/contentItemsValidator.js ***!
   \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const FormContentItemIndentError = __webpack_require__(/*! ../../Errors/FormContentItemIndentError.js */ \"./src/Errors/FormContentItemIndentError.js-exposed\");\r\nconst {getBlock, findSize, jsonParser, findStartBlock} = __webpack_require__(/*! ../tools.js */ \"./src/Validators/tools.js-exposed\");\r\n\r\n/**\r\n * @param {string} blockStr\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormSizeError\r\n */\r\nmodule.exports = function (blockStr, referenceSize, originalBlockStr, blockStartPosition) {\r\n\r\n    let regExpForm = /\"elem\"(\\s){0,}:(\\s){0,}\"content-item\"/g;\r\n    let positionContentItems = [];\r\n    let errors = [];\r\n    while (true) {\r\n        let regExpResult = regExpForm.exec(blockStr);\r\n        if (!regExpResult) {\r\n            break;\r\n        }\r\n        positionContentItems.push(blockStartPosition + findStartBlock(blockStr, regExpResult.index));\r\n    }\r\n    positionContentItems.forEach(function (position, index) {\r\n        let block = getBlock(originalBlockStr, position);\r\n        try {\r\n            validate(jsonParser(block), referenceSize, originalBlockStr, position, (index + 1) < positionContentItems.length)\r\n        } catch (e) {\r\n            if (e instanceof FormContentItemIndentError) {\r\n                errors.push(e.getError());\r\n            } else {\r\n                throw e;\r\n            }\r\n        }\r\n    });\r\n    return errors;\r\n};\r\n/**\r\n * @param {{block: string, elem: string|undefined, content: Array|undefined, mix: Object|undefined}} blockObj\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n * @param {boolean} isRequire\r\n *\r\n * @throws FormContentItemIndentError\r\n */\r\nconst validate = function (blockObj, referenceSize, originalBlockStr, blockStartPosition, isRequire) {\r\n    if (blockObj.mix) {\r\n        blockObj.mix.forEach((mix) => {\r\n            if (!validateMix(mix, referenceSize, isRequire)) {\r\n                throw new FormContentItemIndentError(originalBlockStr, blockStartPosition);\r\n            }\r\n        });\r\n    } else if (isRequire) {\r\n        throw new FormContentItemIndentError(originalBlockStr, blockStartPosition);\r\n    }\r\n};\r\n\r\n/**\r\n * @param {{block: string, elem: string|undefined, content: Array|undefined, mods: Object|undefined}} mix\r\n * @param {string} referenceSize\r\n * @param {boolean} isRequire\r\n *\r\n * @return {boolean}\r\n */\r\nconst validateMix = function (mix, referenceSize, isRequire) {\r\n    if (mix.block === 'form' && mix.elem === 'item' && mix.mods['indent-b'] && isRequire) {\r\n        return ((findSize(mix.mods['indent-b']) - findSize(referenceSize)) === 1);\r\n    }\r\n    return !isRequire;\r\n};\n\n//# sourceURL=webpack:///./src/Validators/Form/contentItemsValidator.js?");
+eval("const FormContentItemIndentError = __webpack_require__(/*! ../../Errors/FormContentItemIndentError.js */ \"./src/Errors/FormContentItemIndentError.js-exposed\");\r\nconst {getBlock, findSize, jsonParser, findStartBlock} = __webpack_require__(/*! ../tools.js */ \"./src/Validators/tools.js-exposed\");\r\n\r\n/**\r\n * @param {string} blockStr\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormSizeError\r\n */\r\nmodule.exports = function (blockStr, referenceSize, originalBlockStr, blockStartPosition) {\r\n\r\n    let regExpForm = /\"elem\"(\\s){0,}:(\\s){0,}\"content-item\"/g;\r\n    let positionContentItems = [];\r\n    let errors = [];\r\n    while (true) {\r\n        let regExpResult = regExpForm.exec(blockStr);\r\n        if (!regExpResult) {\r\n            break;\r\n        }\r\n        positionContentItems.push(blockStartPosition + findStartBlock(blockStr, regExpResult.index));\r\n    }\r\n    positionContentItems.forEach(function (position, index) {\r\n        let block = getBlock(originalBlockStr, position);\r\n        try {\r\n            validate(jsonParser(block), referenceSize, originalBlockStr, position, (index + 1) < positionContentItems.length)\r\n        } catch (e) {\r\n            if (e instanceof FormContentItemIndentError) {\r\n                errors.push(e.getError());\r\n            } else {\r\n                throw e;\r\n            }\r\n        }\r\n    });\r\n    return errors;\r\n};\r\n/**\r\n * @param {{block: string, elem: string|undefined, content: Array|undefined, mix: Object|undefined}} blockObj\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n * @param {boolean} isRequire\r\n *\r\n * @throws FormContentItemIndentError\r\n */\r\nconst validate = function (blockObj, referenceSize, originalBlockStr, blockStartPosition, isRequire) {\r\n    if (blockObj.mix) {\r\n        blockObj.mix.forEach((mix) => {\r\n            if (!validateMix(mix, referenceSize, isRequire)) {\r\n                throw new FormContentItemIndentError(originalBlockStr, blockStartPosition);\r\n            }\r\n        });\r\n    } else if (isRequire) {\r\n        throw new FormContentItemIndentError(originalBlockStr, blockStartPosition);\r\n    }\r\n};\r\n\r\n/**\r\n * @param {{block: string, elem: string|undefined, content: Array|undefined, mods: Object|undefined}} mix\r\n * @param {string} referenceSize\r\n * @param {boolean} isRequire\r\n *\r\n * @return {boolean}\r\n */\r\nconst validateMix = function (mix, referenceSize, isRequire) {\r\n    if (mix.block === 'form' && mix.elem === 'item' && mix.mods['indent-b'] && isRequire) {\r\n        return ((findSize(mix.mods['indent-b']) - findSize(referenceSize)) === 1);\r\n    }\r\n    return !isRequire;\r\n};\n\n//# sourceURL=webpack:///./src/Validators/form/contentItemsValidator.js?");
 
 /***/ }),
 
-/***/ "./src/Validators/Form/contentItemsValidator.js-exposed":
+/***/ "./src/Validators/form/contentItemsValidator.js-exposed":
 /*!**************************************************************!*\
-  !*** ./src/Validators/Form/contentItemsValidator.js-exposed ***!
+  !*** ./src/Validators/form/contentItemsValidator.js-exposed ***!
   \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./contentItemsValidator.js */ \"./src/Validators/Form/contentItemsValidator.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Validators/Form/contentItemsValidator.js-exposed?");
+eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./contentItemsValidator.js */ \"./src/Validators/form/contentItemsValidator.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Validators/form/contentItemsValidator.js-exposed?");
 
 /***/ }),
 
-/***/ "./src/Validators/Form/contentValidator.js":
+/***/ "./src/Validators/form/contentValidator.js":
 /*!*************************************************!*\
-  !*** ./src/Validators/Form/contentValidator.js ***!
+  !*** ./src/Validators/form/contentValidator.js ***!
   \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const LinterError = __webpack_require__(/*! ../../Errors/LinterError.js */ \"./src/Errors/LinterError.js-exposed\");\r\nconst spaceHorizontalValidator = __webpack_require__(/*! ./spaceHorizontalValidator.js */ \"./src/Validators/Form/spaceHorizontalValidator.js-exposed\");\r\nconst spaceVerticalValidator = __webpack_require__(/*! ./spaceVerticalValidator.js */ \"./src/Validators/Form/spaceVerticalValidator.js-exposed\");\r\nconst contentItemsValidator = __webpack_require__(/*! ./contentItemsValidator.js */ \"./src/Validators/Form/contentItemsValidator.js-exposed\");\r\n\r\n/**\r\n * @param {string} blockStr\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} startPositionBlock\r\n * @return {[{code:string,message:string,locality:{start:{line:number,column:number},end:{line:number,column:number}}}]}\r\n */\r\nmodule.exports = function (blockStr, referenceSize, originalBlockStr, startPositionBlock) {\r\n    let errors = [];\r\n    try {\r\n        spaceHorizontalValidator(blockStr, referenceSize, originalBlockStr, startPositionBlock);\r\n    } catch (e) {\r\n        if (e instanceof LinterError) {\r\n            errors.push(e.getError());\r\n        } else {\r\n            throw e;\r\n        }\r\n    }\r\n    try {\r\n        spaceVerticalValidator(blockStr, referenceSize, originalBlockStr, startPositionBlock);\r\n    } catch (e) {\r\n        if (e instanceof LinterError) {\r\n            errors.push(e.getError());\r\n        } else {\r\n            throw e;\r\n        }\r\n    }\r\n    errors = errors.concat(contentItemsValidator(blockStr, referenceSize, originalBlockStr, startPositionBlock));\r\n    return errors;\r\n};\n\n//# sourceURL=webpack:///./src/Validators/Form/contentValidator.js?");
+eval("const LinterError = __webpack_require__(/*! ../../Errors/LinterError.js */ \"./src/Errors/LinterError.js-exposed\");\r\nconst spaceHorizontalValidator = __webpack_require__(/*! ./spaceHorizontalValidator.js */ \"./src/Validators/form/spaceHorizontalValidator.js-exposed\");\r\nconst spaceVerticalValidator = __webpack_require__(/*! ./spaceVerticalValidator.js */ \"./src/Validators/form/spaceVerticalValidator.js-exposed\");\r\nconst contentItemsValidator = __webpack_require__(/*! ./contentItemsValidator.js */ \"./src/Validators/form/contentItemsValidator.js-exposed\");\r\n\r\n/**\r\n * @param {string} blockStr\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} startPositionBlock\r\n * @return {[{code:string,message:string,locality:{start:{line:number,column:number},end:{line:number,column:number}}}]}\r\n */\r\nmodule.exports = function (blockStr, referenceSize, originalBlockStr, startPositionBlock) {\r\n    let errors = [];\r\n    try {\r\n        spaceHorizontalValidator(blockStr, referenceSize, originalBlockStr, startPositionBlock);\r\n    } catch (e) {\r\n        if (e instanceof LinterError) {\r\n            errors.push(e.getError());\r\n        } else {\r\n            throw e;\r\n        }\r\n    }\r\n    try {\r\n        spaceVerticalValidator(blockStr, referenceSize, originalBlockStr, startPositionBlock);\r\n    } catch (e) {\r\n        if (e instanceof LinterError) {\r\n            errors.push(e.getError());\r\n        } else {\r\n            throw e;\r\n        }\r\n    }\r\n    errors = errors.concat(contentItemsValidator(blockStr, referenceSize, originalBlockStr, startPositionBlock));\r\n    return errors;\r\n};\r\n\n\n//# sourceURL=webpack:///./src/Validators/form/contentValidator.js?");
 
 /***/ }),
 
-/***/ "./src/Validators/Form/contentValidator.js-exposed":
+/***/ "./src/Validators/form/contentValidator.js-exposed":
 /*!*********************************************************!*\
-  !*** ./src/Validators/Form/contentValidator.js-exposed ***!
+  !*** ./src/Validators/form/contentValidator.js-exposed ***!
   \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./contentValidator.js */ \"./src/Validators/Form/contentValidator.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Validators/Form/contentValidator.js-exposed?");
+eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./contentValidator.js */ \"./src/Validators/form/contentValidator.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Validators/form/contentValidator.js-exposed?");
 
 /***/ }),
 
-/***/ "./src/Validators/Form/sizeValidator.js":
+/***/ "./src/Validators/form/headerValidator.js":
+/*!************************************************!*\
+  !*** ./src/Validators/form/headerValidator.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const FormHeaderSizeError = __webpack_require__(/*! ../../Errors/FormHeaderSizeError.js */ \"./src/Errors/FormHeaderSizeError.js-exposed\");\r\nconst {getBlock, findSize, jsonParser, findStartBlock} = __webpack_require__(/*! ../tools.js */ \"./src/Validators/tools.js-exposed\");\r\n\r\n/**\r\n * @param {string} blockStr\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormSizeError\r\n */\r\nmodule.exports = function (blockStr, referenceSize, originalBlockStr, blockStartPosition) {\r\n\r\n    let regExpForm = /\"block\"(\\s){0,}:(\\s){0,}\"text\"/g;\r\n    let positionContentItems = [];\r\n    let errors = [];\r\n    while (true) {\r\n        let regExpResult = regExpForm.exec(blockStr);\r\n        if (!regExpResult) {\r\n            break;\r\n        }\r\n        positionContentItems.push(blockStartPosition + findStartBlock(blockStr, regExpResult.index));\r\n    }\r\n    positionContentItems.forEach(function (position) {\r\n        let block = getBlock(originalBlockStr, position);\r\n        try {\r\n            validate(jsonParser(block), referenceSize, originalBlockStr, position)\r\n        } catch (e) {\r\n            if (e instanceof FormHeaderSizeError) {\r\n                errors.push(e.getError());\r\n            } else {\r\n                throw e;\r\n            }\r\n        }\r\n    });\r\n    return errors;\r\n};\r\n/**\r\n * @param {{block: string, elem: string|undefined, content: Array|undefined, mods: Object|undefined}} blockObj\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormContentItemIndentError\r\n */\r\nconst validate = function (blockObj, referenceSize, originalBlockStr, blockStartPosition) {\r\n    if (blockObj.mods && blockObj.mods.size) {\r\n        if ((findSize(blockObj.mods.size) - findSize(referenceSize)) !== 2) {\r\n            throw new FormHeaderSizeError(originalBlockStr, blockStartPosition);\r\n        }\r\n    } else {\r\n        throw new FormHeaderSizeError(originalBlockStr, blockStartPosition);\r\n    }\r\n};\r\n\n\n//# sourceURL=webpack:///./src/Validators/form/headerValidator.js?");
+
+/***/ }),
+
+/***/ "./src/Validators/form/headerValidator.js-exposed":
+/*!********************************************************!*\
+  !*** ./src/Validators/form/headerValidator.js-exposed ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./headerValidator.js */ \"./src/Validators/form/headerValidator.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Validators/form/headerValidator.js-exposed?");
+
+/***/ }),
+
+/***/ "./src/Validators/form/sizeValidator.js":
 /*!**********************************************!*\
-  !*** ./src/Validators/Form/sizeValidator.js ***!
+  !*** ./src/Validators/form/sizeValidator.js ***!
   \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const FormSizeError = __webpack_require__(/*! ../../Errors/FormSizeError.js */ \"./src/Errors/FormSizeError.js-exposed\");\r\nconst {FORM_ELEMENTS, ELEMENTS, jsonParser, factoryElement} = __webpack_require__(/*! ../tools.js */ \"./src/Validators/tools.js-exposed\");\r\n\r\n/**\r\n * @param {string} blockStr\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormSizeError\r\n */\r\nmodule.exports = function (blockStr, referenceSize, originalBlockStr, blockStartPosition) {\r\n    validate(jsonParser(blockStr), referenceSize, originalBlockStr, blockStartPosition);\r\n};\r\n/**\r\n * @param {{block: string, content: Array|undefined, mods: Object|undefined}} blockObj\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormSizeError\r\n */\r\nconst validate = function (blockObj, referenceSize, originalBlockStr, blockStartPosition) {\r\n    if (blockObj.content) {\r\n        blockObj.content.forEach(blockObj => {\r\n            validate(blockObj, referenceSize, originalBlockStr, blockStartPosition)\r\n        });\r\n    }\r\n    if (FORM_ELEMENTS.indexOf(factoryElement(blockObj)) !== -1) {\r\n        if (!validateBlock(blockObj, referenceSize)) {\r\n            throw new FormSizeError(originalBlockStr, blockStartPosition);\r\n        }\r\n    }\r\n};\r\n\r\nconst validateBlock = function (blockObj, referenceSize) {\r\n    if (factoryElement(blockObj) === ELEMENTS.LABEL) {\r\n        for (let i = 0, l = blockObj.content.length; i < l; i++) {\r\n            if (blockObj.content[i].block === ELEMENTS.TEXT &&\r\n                !validateBlock(blockObj.content[i], referenceSize)) {\r\n                return false;\r\n            }\r\n        }\r\n    } else {\r\n        return blockObj.mods && blockObj.mods.size && blockObj.mods.size === referenceSize;\r\n    }\r\n    return true;\r\n};\n\n//# sourceURL=webpack:///./src/Validators/Form/sizeValidator.js?");
+eval("const FormSizeError = __webpack_require__(/*! ../../Errors/FormSizeError.js */ \"./src/Errors/FormSizeError.js-exposed\");\r\nconst {FORM_ELEMENTS, ELEMENTS, jsonParser, factoryElement} = __webpack_require__(/*! ../tools.js */ \"./src/Validators/tools.js-exposed\");\r\n\r\n/**\r\n * @param {string} blockStr\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormSizeError\r\n */\r\nmodule.exports = function (blockStr, referenceSize, originalBlockStr, blockStartPosition) {\r\n    validate(jsonParser(blockStr), referenceSize, originalBlockStr, blockStartPosition);\r\n};\r\n/**\r\n * @param {{block: string, content: Array|undefined, mods: Object|undefined}} blockObj\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormSizeError\r\n */\r\nconst validate = function (blockObj, referenceSize, originalBlockStr, blockStartPosition) {\r\n    if (blockObj.content) {\r\n        blockObj.content.forEach(blockObj => {\r\n            validate(blockObj, referenceSize, originalBlockStr, blockStartPosition)\r\n        });\r\n    }\r\n    if (FORM_ELEMENTS.indexOf(factoryElement(blockObj)) !== -1) {\r\n        if (!validateBlock(blockObj, referenceSize)) {\r\n            throw new FormSizeError(originalBlockStr, blockStartPosition);\r\n        }\r\n    }\r\n};\r\n/**\r\n * @param {{block: string, content: Array|undefined, mods: Object|undefined}} blockObj\r\n * @param {string} referenceSize\r\n * @return {boolean}\r\n */\r\nconst validateBlock = function (blockObj, referenceSize) {\r\n    if (factoryElement(blockObj) === ELEMENTS.LABEL) {\r\n        for (let i = 0, l = blockObj.content.length; i < l; i++) {\r\n            if (blockObj.content[i].block === ELEMENTS.TEXT &&\r\n                !validateBlock(blockObj.content[i], referenceSize)) {\r\n                return false;\r\n            }\r\n        }\r\n    } else {\r\n        return blockObj.mods && blockObj.mods.size && blockObj.mods.size === referenceSize;\r\n    }\r\n    return true;\r\n};\r\n\n\n//# sourceURL=webpack:///./src/Validators/form/sizeValidator.js?");
 
 /***/ }),
 
-/***/ "./src/Validators/Form/sizeValidator.js-exposed":
+/***/ "./src/Validators/form/sizeValidator.js-exposed":
 /*!******************************************************!*\
-  !*** ./src/Validators/Form/sizeValidator.js-exposed ***!
+  !*** ./src/Validators/form/sizeValidator.js-exposed ***!
   \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./sizeValidator.js */ \"./src/Validators/Form/sizeValidator.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Validators/Form/sizeValidator.js-exposed?");
+eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./sizeValidator.js */ \"./src/Validators/form/sizeValidator.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Validators/form/sizeValidator.js-exposed?");
 
 /***/ }),
 
-/***/ "./src/Validators/Form/spaceHorizontalValidator.js":
+/***/ "./src/Validators/form/spaceHorizontalValidator.js":
 /*!*********************************************************!*\
-  !*** ./src/Validators/Form/spaceHorizontalValidator.js ***!
+  !*** ./src/Validators/form/spaceHorizontalValidator.js ***!
   \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const FormHorizontalSpaceError = __webpack_require__(/*! ../../Errors/FormHorizontalSpaceError.js */ \"./src/Errors/FormHorizontalSpaceError.js-exposed\");\r\nconst {findSize, jsonParser} = __webpack_require__(/*! ../tools.js */ \"./src/Validators/tools.js-exposed\");\r\n\r\n/**\r\n * @param {string} blockStr\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormSizeError\r\n */\r\nmodule.exports = function (blockStr, referenceSize, originalBlockStr, blockStartPosition) {\r\n    validate(jsonParser(blockStr), referenceSize, originalBlockStr, blockStartPosition);\r\n};\r\n/**\r\n * @param {{block: string, elem: string|undefined, content: Array|undefined, mix: Object|undefined}} blockObj\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormSizeError\r\n */\r\nconst validate = function (blockObj, referenceSize, originalBlockStr, blockStartPosition) {\r\n    if (blockObj.content) {\r\n        blockObj.content.map(blockObj => {\r\n            validate(blockObj, referenceSize, originalBlockStr, blockStartPosition)\r\n        });\r\n    }\r\n    if (blockObj.block === 'form' && blockObj.elem === 'content') {\r\n        if (blockObj.mix) {\r\n            blockObj.mix.forEach((mix) => {\r\n                if (!validateMix(mix, referenceSize)) {\r\n                    throw new FormHorizontalSpaceError(originalBlockStr, blockStartPosition);\r\n                }\r\n            });\r\n        }\r\n    }\r\n};\r\n\r\n/**\r\n * @param {{block: string, elem: string|undefined, content: Array|undefined, mods: Object|undefined}} mix\r\n * @param {string} referenceSize\r\n *\r\n */\r\nconst validateMix = function (mix, referenceSize) {\r\n    if (mix.block === 'form' && mix.elem === 'item' && mix.mods['space-h']) {\r\n        return ((findSize(mix.mods['space-h']) - findSize(referenceSize)) === 1);\r\n    }\r\n    return true;\r\n};\n\n//# sourceURL=webpack:///./src/Validators/Form/spaceHorizontalValidator.js?");
+eval("const FormHorizontalSpaceError = __webpack_require__(/*! ../../Errors/FormHorizontalSpaceError.js */ \"./src/Errors/FormHorizontalSpaceError.js-exposed\");\r\nconst {findSize, jsonParser} = __webpack_require__(/*! ../tools.js */ \"./src/Validators/tools.js-exposed\");\r\n\r\n/**\r\n * @param {string} blockStr\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormSizeError\r\n */\r\nmodule.exports = function (blockStr, referenceSize, originalBlockStr, blockStartPosition) {\r\n    validate(jsonParser(blockStr), referenceSize, originalBlockStr, blockStartPosition);\r\n};\r\n/**\r\n * @param {{block: string, elem: string|undefined, content: Array|undefined, mix: Object|undefined}} blockObj\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormSizeError\r\n */\r\nconst validate = function (blockObj, referenceSize, originalBlockStr, blockStartPosition) {\r\n    if (blockObj.content) {\r\n        blockObj.content.map(blockObj => {\r\n            validate(blockObj, referenceSize, originalBlockStr, blockStartPosition)\r\n        });\r\n    }\r\n    if (blockObj.block === 'form' && blockObj.elem === 'content') {\r\n        if (blockObj.mix) {\r\n            blockObj.mix.forEach((mix) => {\r\n                if (!validateMix(mix, referenceSize)) {\r\n                    throw new FormHorizontalSpaceError(originalBlockStr, blockStartPosition);\r\n                }\r\n            });\r\n        }\r\n    }\r\n};\r\n\r\n/**\r\n * @param {{block: string, elem: string|undefined, content: Array|undefined, mods: Object|undefined}} mix\r\n * @param {string} referenceSize\r\n *\r\n */\r\nconst validateMix = function (mix, referenceSize) {\r\n    if (mix.block === 'form' && mix.elem === 'item' && mix.mods['space-h']) {\r\n        return ((findSize(mix.mods['space-h']) - findSize(referenceSize)) === 1);\r\n    }\r\n    return true;\r\n};\n\n//# sourceURL=webpack:///./src/Validators/form/spaceHorizontalValidator.js?");
 
 /***/ }),
 
-/***/ "./src/Validators/Form/spaceHorizontalValidator.js-exposed":
+/***/ "./src/Validators/form/spaceHorizontalValidator.js-exposed":
 /*!*****************************************************************!*\
-  !*** ./src/Validators/Form/spaceHorizontalValidator.js-exposed ***!
+  !*** ./src/Validators/form/spaceHorizontalValidator.js-exposed ***!
   \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./spaceHorizontalValidator.js */ \"./src/Validators/Form/spaceHorizontalValidator.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Validators/Form/spaceHorizontalValidator.js-exposed?");
+eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./spaceHorizontalValidator.js */ \"./src/Validators/form/spaceHorizontalValidator.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Validators/form/spaceHorizontalValidator.js-exposed?");
 
 /***/ }),
 
-/***/ "./src/Validators/Form/spaceVerticalValidator.js":
+/***/ "./src/Validators/form/spaceVerticalValidator.js":
 /*!*******************************************************!*\
-  !*** ./src/Validators/Form/spaceVerticalValidator.js ***!
+  !*** ./src/Validators/form/spaceVerticalValidator.js ***!
   \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const FormVerticalSpaceError = __webpack_require__(/*! ../../Errors/FormVerticalSpaceError.js */ \"./src/Errors/FormVerticalSpaceError.js-exposed\");\r\nconst {findSize, jsonParser} = __webpack_require__(/*! ../tools.js */ \"./src/Validators/tools.js-exposed\");\r\n\r\n/**\r\n * @param {string} blockStr\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormSizeError\r\n */\r\nmodule.exports = function (blockStr, referenceSize, originalBlockStr, blockStartPosition) {\r\n    validate(jsonParser(blockStr), referenceSize, originalBlockStr, blockStartPosition);\r\n};\r\n/**\r\n * @param {{block: string, elem: string|undefined, content: Array|undefined, mix: Object|undefined}} blockObj\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormSizeError\r\n */\r\nconst validate = function (blockObj, referenceSize, originalBlockStr, blockStartPosition) {\r\n    if (blockObj.content) {\r\n        blockObj.content.map(blockObj => {\r\n            validate(blockObj, referenceSize, originalBlockStr, blockStartPosition)\r\n        });\r\n    }\r\n    if (blockObj.block === 'form' && blockObj.elem === 'content') {\r\n        if (blockObj.mix) {\r\n            blockObj.mix.forEach((mix) => {\r\n                if (!validateMix(mix, referenceSize)) {\r\n                    throw new FormVerticalSpaceError(originalBlockStr, blockStartPosition);\r\n                }\r\n            });\r\n        }\r\n    }\r\n};\r\n\r\n/**\r\n * @param {{block: string, elem: string|undefined, content: Array|undefined, mods: Object|undefined}} mix\r\n * @param {string} referenceSize\r\n *\r\n */\r\nconst validateMix = function (mix, referenceSize) {\r\n    if (mix.block === 'form' && mix.elem === 'item' && mix.mods['space-v']) {\r\n        return ((findSize(mix.mods['space-v']) - findSize(referenceSize)) === 2);\r\n    }\r\n    return true;\r\n};\n\n//# sourceURL=webpack:///./src/Validators/Form/spaceVerticalValidator.js?");
+eval("const FormVerticalSpaceError = __webpack_require__(/*! ../../Errors/FormVerticalSpaceError.js */ \"./src/Errors/FormVerticalSpaceError.js-exposed\");\r\nconst {findSize, jsonParser} = __webpack_require__(/*! ../tools.js */ \"./src/Validators/tools.js-exposed\");\r\n\r\n/**\r\n * @param {string} blockStr\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormSizeError\r\n */\r\nmodule.exports = function (blockStr, referenceSize, originalBlockStr, blockStartPosition) {\r\n    validate(jsonParser(blockStr), referenceSize, originalBlockStr, blockStartPosition);\r\n};\r\n/**\r\n * @param {{block: string, elem: string|undefined, content: Array|undefined, mix: Object|undefined}} blockObj\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormSizeError\r\n */\r\nconst validate = function (blockObj, referenceSize, originalBlockStr, blockStartPosition) {\r\n    if (blockObj.content) {\r\n        blockObj.content.map(blockObj => {\r\n            validate(blockObj, referenceSize, originalBlockStr, blockStartPosition)\r\n        });\r\n    }\r\n    if (blockObj.block === 'form' && blockObj.elem === 'content') {\r\n        if (blockObj.mix) {\r\n            blockObj.mix.forEach((mix) => {\r\n                if (!validateMix(mix, referenceSize)) {\r\n                    throw new FormVerticalSpaceError(originalBlockStr, blockStartPosition);\r\n                }\r\n            });\r\n        }\r\n    }\r\n};\r\n\r\n/**\r\n * @param {{block: string, elem: string|undefined, content: Array|undefined, mods: Object|undefined}} mix\r\n * @param {string} referenceSize\r\n *\r\n */\r\nconst validateMix = function (mix, referenceSize) {\r\n    if (mix.block === 'form' && mix.elem === 'item' && mix.mods['space-v']) {\r\n        return ((findSize(mix.mods['space-v']) - findSize(referenceSize)) === 2);\r\n    }\r\n    return true;\r\n};\n\n//# sourceURL=webpack:///./src/Validators/form/spaceVerticalValidator.js?");
 
 /***/ }),
 
-/***/ "./src/Validators/Form/spaceVerticalValidator.js-exposed":
+/***/ "./src/Validators/form/spaceVerticalValidator.js-exposed":
 /*!***************************************************************!*\
-  !*** ./src/Validators/Form/spaceVerticalValidator.js-exposed ***!
+  !*** ./src/Validators/form/spaceVerticalValidator.js-exposed ***!
   \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./spaceVerticalValidator.js */ \"./src/Validators/Form/spaceVerticalValidator.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Validators/Form/spaceVerticalValidator.js-exposed?");
-
-/***/ }),
-
-/***/ "./src/Validators/findReferenceSize.js":
-/*!*********************************************!*\
-  !*** ./src/Validators/findReferenceSize.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("const {FORM_ELEMENTS, ELEMENTS, factoryElement, jsonParser} = __webpack_require__(/*! ./tools.js */ \"./src/Validators/tools.js-exposed\");\r\n\r\n/**\r\n * @param {string} blockStr\r\n * @return {string|null}\r\n */\r\nmodule.exports = function (blockStr) {\r\n    return find(jsonParser(blockStr));//todo в идеале бы кидать ошибку если размер не найден в форме, а элементы присутствуют\r\n};\r\n/**\r\n * @param {{block: string, content: Array|undefined, mods: Object|undefined}} blockObj\r\n * @return {string|null}\r\n */\r\nconst find = function (blockObj) {\r\n    let size = null;\r\n    if (blockObj.content) {\r\n        for (let i = 0, l = blockObj.content.length; i < l; i++) {\r\n            let size = find(blockObj.content[i]);\r\n            if (size) {\r\n                return size;\r\n            }\r\n        }\r\n    }\r\n    if (FORM_ELEMENTS.indexOf(factoryElement(blockObj)) !== -1) {\r\n        size = getSize(blockObj);\r\n    }\r\n    return size;\r\n};\r\n\r\nconst getSize = function (blockObj) {\r\n    let size = null;\r\n    if (factoryElement(blockObj) === ELEMENTS.LABEL) {\r\n        for (let i = 0, l = blockObj.content.length; i < l; i++) {\r\n            if (blockObj.content[i].block === ELEMENTS.TEXT) {\r\n                size = getSize(blockObj.content[i]);\r\n                if (size) {\r\n                    break;\r\n                }\r\n            }\r\n        }\r\n    } else if (blockObj.mods && blockObj.mods.size) {\r\n        size = blockObj.mods.size\r\n    }\r\n    return size;\r\n};\n\n//# sourceURL=webpack:///./src/Validators/findReferenceSize.js?");
-
-/***/ }),
-
-/***/ "./src/Validators/findReferenceSize.js-exposed":
-/*!*****************************************************!*\
-  !*** ./src/Validators/findReferenceSize.js-exposed ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./findReferenceSize.js */ \"./src/Validators/findReferenceSize.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Validators/findReferenceSize.js-exposed?");
+eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./spaceVerticalValidator.js */ \"./src/Validators/form/spaceVerticalValidator.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Validators/form/spaceVerticalValidator.js-exposed?");
 
 /***/ }),
 
@@ -379,7 +401,7 @@ eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"li
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const LinterError = __webpack_require__(/*! ../Errors/LinterError.js */ \"./src/Errors/LinterError.js-exposed\");\r\nconst {findStartBlock, getBlock, jsonParser} = __webpack_require__(/*! ./tools.js */ \"./src/Validators/tools.js-exposed\");\r\nconst findReferenceSize = __webpack_require__(/*! ./findReferenceSize.js */ \"./src/Validators/findReferenceSize.js-exposed\");\r\nconst sizeValidator = __webpack_require__(/*! ./Form/sizeValidator.js */ \"./src/Validators/Form/sizeValidator.js-exposed\");\r\nconst contentValidator = __webpack_require__(/*! ./Form/contentValidator.js */ \"./src/Validators/Form/contentValidator.js-exposed\");\r\n\r\n\r\nmodule.exports = function (originalBlockStr) {\r\n    let regExpForm = /\"block\"(\\s){0,}:(\\s){0,}\"form\"/g;\r\n    let errors = [];\r\n    while (true) {\r\n        let regExpFormResult = regExpForm.exec(originalBlockStr);\r\n        if (!regExpFormResult) {\r\n            break;\r\n        }\r\n        let startPositionBlock = findStartBlock(originalBlockStr, regExpFormResult.index);\r\n        errors = errors.concat(validate(originalBlockStr, startPositionBlock));\r\n    }\r\n    return errors;\r\n};\r\n\r\n/**\r\n *\r\n * @param {string} originalBlockStr\r\n * @param {number} startPositionBlock\r\n * @return {[{code:string,message:string,locality:{start:{line:number,column:number},end:{line:number,column:number}}}]}\r\n */\r\nconst validate = function (originalBlockStr, startPositionBlock) {\r\n    let errors = [];\r\n    let blockStr = getBlock(originalBlockStr, startPositionBlock);\r\n    let referenceSize = findReferenceSize(blockStr);\r\n    if (!referenceSize) {\r\n        return errors;\r\n    }\r\n    try {\r\n        sizeValidator(blockStr, referenceSize, originalBlockStr, startPositionBlock);\r\n    } catch (e) {\r\n        if (e instanceof LinterError) {\r\n            errors.push(e.getError());\r\n        } else {\r\n            throw e;\r\n        }\r\n    }\r\n    let blockObj = jsonParser(blockStr);\r\n    if (blockObj.elem && blockObj.elem === 'content') {\r\n        errors = errors.concat(contentValidator(blockStr, referenceSize, originalBlockStr, startPositionBlock));\r\n    }\r\n    return errors;\r\n};\r\n\r\n// module.exports = function (obj) {\r\n//     // let regExpForm = /\"block\":(\\s){0,}\"form\"[,\\n.*]{0,}[^{}][\\s]{0,}\"elem\":(\\s){0,}\"content\"/g;\r\n//     let regExpForm = /\"block\"(\\s){0,}:(\\s){0,}\"form\"/g;\r\n//     let errors = [];\r\n//     while (true) {\r\n//         // let form = regExpForm.exec(obj);\r\n//         // if (!form) {\r\n//         //     break;\r\n//         // }\r\n//         // let positionStart = findStartBlock(obj, form.index);\r\n//         //\r\n//         // //Получать эталонный размер, а уже относительно него смотреть спейсы\r\n//         // VALIDATORS.forEach((validator) => {\r\n//         //     try {\r\n//         //         validator(obj, positionStart)\r\n//         //     } catch (error) {\r\n//         //         if (error instanceof LinterError) {\r\n//         //             errors.push(error.getError());\r\n//         //         } else {\r\n//         //             throw error;\r\n//         //         }\r\n//         //     }\r\n//         // });\r\n//     }\r\n//     return errors;\r\n// };\r\n//\r\n// //// /(\"block\":(\\s){0,}\"form\",(\\n.*){0,}\"elem\":(\\s){0,}\"content\"(,?))/\n\n//# sourceURL=webpack:///./src/Validators/formValidator.js?");
+eval("const LinterError = __webpack_require__(/*! ../Errors/LinterError.js */ \"./src/Errors/LinterError.js-exposed\");\r\nconst {findStartBlock, getBlock, jsonParser, factoryElement, ELEMENTS} = __webpack_require__(/*! ./tools.js */ \"./src/Validators/tools.js-exposed\");\r\nconst getReferenceSize = __webpack_require__(/*! ./getReferenceSize.js */ \"./src/Validators/getReferenceSize.js-exposed\");\r\nconst sizeValidator = __webpack_require__(/*! ./form/sizeValidator.js */ \"./src/Validators/form/sizeValidator.js-exposed\");\r\nconst contentValidator = __webpack_require__(/*! ./form/contentValidator.js */ \"./src/Validators/form/contentValidator.js-exposed\");\r\nconst headerValidator = __webpack_require__(/*! ./form/headerValidator.js */ \"./src/Validators/form/headerValidator.js-exposed\");\r\n\r\n/**\r\n * @param {string} originalBlockStr\r\n * @return {Array|{code: string, message: string, locality: {start: {line: number, column: number}, end: {line: number, column: number}}}[]}\r\n */\r\nmodule.exports = function (originalBlockStr) {\r\n    let regExpForm = /\"block\"(\\s){0,}:(\\s){0,}\"form\"/g;\r\n    let errors = [];\r\n    while (true) {\r\n        let regExpFormResult = regExpForm.exec(originalBlockStr);\r\n        if (!regExpFormResult) {\r\n            break;\r\n        }\r\n        let startPositionBlock = findStartBlock(originalBlockStr, regExpFormResult.index);\r\n        errors = errors.concat(validate(originalBlockStr, startPositionBlock));\r\n    }\r\n    return errors;\r\n};\r\n\r\n/**\r\n *\r\n * @param {string} originalBlockStr\r\n * @param {number} startPositionFormBlock\r\n * @return {[{code:string,message:string,locality:{start:{line:number,column:number},end:{line:number,column:number}}}]}\r\n */\r\nconst validate = function (originalBlockStr, startPositionFormBlock) {\r\n    let errors = [];\r\n    let formBlockStr = getBlock(originalBlockStr, startPositionFormBlock);\r\n    let referenceSize = getReferenceSize(formBlockStr);\r\n    if (!referenceSize) {\r\n        return errors;\r\n    }\r\n    try {\r\n        sizeValidator(formBlockStr, referenceSize, originalBlockStr, startPositionFormBlock);\r\n    } catch (e) {\r\n        if (e instanceof LinterError) {\r\n            errors.push(e.getError());\r\n        } else {\r\n            throw e;\r\n        }\r\n    }\r\n    let blockObj = jsonParser(formBlockStr);\r\n    if (blockObj.elem) {\r\n        return errors;\r\n    }\r\n\r\n    let regExpForm = /\"elem\"(\\s){0,}:(\\s){0,}\"(header|content)\"/g;\r\n    while (true) {\r\n        let regExpFormResult = regExpForm.exec(formBlockStr);\r\n        if (!regExpFormResult) {\r\n            break;\r\n        }\r\n        let startPositionBlock = startPositionFormBlock + findStartBlock(formBlockStr, regExpFormResult.index);\r\n        let blockStr = getBlock(originalBlockStr, startPositionBlock);\r\n        let blockObj = jsonParser(blockStr);\r\n        switch (factoryElement(blockObj)) {\r\n            case ELEMENTS.CONTENT:\r\n                errors = errors.concat(contentValidator(blockStr, referenceSize, originalBlockStr, startPositionBlock));\r\n                break;\r\n            case ELEMENTS.HEADER:\r\n                errors = errors.concat(headerValidator(blockStr, referenceSize, originalBlockStr, startPositionBlock));\r\n                break;\r\n        }\r\n    }\r\n    return errors;\r\n};\r\n\n\n//# sourceURL=webpack:///./src/Validators/formValidator.js?");
 
 /***/ }),
 
@@ -394,6 +416,28 @@ eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"li
 
 /***/ }),
 
+/***/ "./src/Validators/getReferenceSize.js":
+/*!********************************************!*\
+  !*** ./src/Validators/getReferenceSize.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const {FORM_ELEMENTS, ELEMENTS, factoryElement, jsonParser} = __webpack_require__(/*! ./tools.js */ \"./src/Validators/tools.js-exposed\");\r\n\r\n/**\r\n * @param {string} blockStr\r\n * @return {string|null}\r\n */\r\nmodule.exports = function (blockStr) {\r\n    return find(jsonParser(blockStr));//todo в идеале бы кидать ошибку если размер не найден в форме, а элементы присутствуют\r\n};\r\n/**\r\n * @param {{block: string, content: Array|undefined, mods: Object|undefined}} blockObj\r\n * @return {string|null}\r\n */\r\nconst find = function (blockObj) {\r\n    let size = null;\r\n    if (blockObj.content) {\r\n        for (let i = 0, l = blockObj.content.length; i < l; i++) {\r\n            let size = find(blockObj.content[i]);\r\n            if (size) {\r\n                return size;\r\n            }\r\n        }\r\n    }\r\n    if (FORM_ELEMENTS.indexOf(factoryElement(blockObj)) !== -1) {\r\n        size = getSize(blockObj);\r\n    }\r\n    return size;\r\n};\r\n/**\r\n * @param {{block: string, elem: string|undefined, content: Array, mods:Object}} blockObj\r\n * @return {string|null}\r\n */\r\nconst getSize = function (blockObj) {\r\n    let size = null;\r\n    if (factoryElement(blockObj) === ELEMENTS.LABEL) {\r\n        for (let i = 0, l = blockObj.content.length; i < l; i++) {\r\n            if (blockObj.content[i].block === ELEMENTS.TEXT) {\r\n                size = getSize(blockObj.content[i]);\r\n                if (size) {\r\n                    break;\r\n                }\r\n            }\r\n        }\r\n    } else if (blockObj.mods && blockObj.mods.size) {\r\n        size = blockObj.mods.size\r\n    }\r\n    return size;\r\n};\r\n\n\n//# sourceURL=webpack:///./src/Validators/getReferenceSize.js?");
+
+/***/ }),
+
+/***/ "./src/Validators/getReferenceSize.js-exposed":
+/*!****************************************************!*\
+  !*** ./src/Validators/getReferenceSize.js-exposed ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./getReferenceSize.js */ \"./src/Validators/getReferenceSize.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Validators/getReferenceSize.js-exposed?");
+
+/***/ }),
+
 /***/ "./src/Validators/tools.js":
 /*!*********************************!*\
   !*** ./src/Validators/tools.js ***!
@@ -401,7 +445,7 @@ eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"li
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const OBJ_START = \"{\";\r\nconst OBJ_END = \"}\";\r\nconst SIZES = ['xxxxs', 'xxxs', 'xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl', 'xxxxl', 'xxxxxl'];\r\nconst ELEMENTS = {\r\n    LABEL: 'form__label',\r\n    INPUT: 'input',\r\n    BUTTON: 'button',\r\n    TEXT: 'text',\r\n};\r\nconst FORM_ELEMENTS = [ELEMENTS.LABEL, ELEMENTS.INPUT, ELEMENTS.BUTTON];\r\n\r\n/**\r\n * Считает накой по счету символ с начала строки\r\n * @param {string} obj\r\n * @param {number} position\r\n * @return {number}\r\n */\r\nconst countColumn = function (obj, position) {\r\n    return obj.substring(0, position).split(\"\\n\").pop().length + 1; //поправка что бы учитывался символ на указанной позиции\r\n};\r\n\r\n/**\r\n * Находит начало блока относительно указанного символа\r\n * @param {string} json\r\n * @param {number} position\r\n * @return {number}\r\n */\r\nconst findStartBlock = function (json, position) {\r\n    let substr = json.substring(0, position);\r\n    return substr.lastIndexOf(OBJ_START);\r\n};\r\n\r\n/**\r\n * Считает на какой строке указанный символ\r\n * @param {string} json\r\n * @param {number} position\r\n * @return {number}\r\n */\r\nconst findLineStart = function (json, position) {\r\n    return countLines(json.substring(0, findStartBlock(json, position)));\r\n};\r\n\r\n/**\r\n * Получить весь блок с указанного символа\r\n * @param {string} json\r\n * @param {number} position\r\n * @return {string}\r\n */\r\nconst getBlock = function (json, position) {\r\n    let substr = json.substring(position);\r\n    let cntObjStart = 0;\r\n    for (let symbolIndex = 1, length = substr.length; symbolIndex < length; symbolIndex++) {\r\n        let symbol = substr[symbolIndex];\r\n        if (symbol === OBJ_START) {\r\n            cntObjStart++;\r\n        } else if (symbol === OBJ_END) {\r\n            if (cntObjStart === 0) {\r\n                substr = substr.substring(0, symbolIndex + 1);\r\n                break;\r\n            }\r\n            cntObjStart--;\r\n        }\r\n    }\r\n    return substr;\r\n};\r\n\r\n/**\r\n * Считает сколько строк в строке\r\n * @param {string} json\r\n * @return {number}\r\n */\r\nconst countLines = function (json) {\r\n    return json.split(\"\\n\").length;\r\n};\r\n\r\n/**\r\n * Считает сколько строк в строке\r\n * @param {string} size\r\n * @return {number}\r\n */\r\nconst findSize = function (size) {\r\n    return SIZES.indexOf(size);\r\n};\r\n\r\nconst jsonParser = function (string) {\r\n    return JSON.parse(string, (key, value) => {\r\n        if (key === 'content') {\r\n            if (value instanceof Array) {\r\n            } else {\r\n                value = [value];\r\n            }\r\n        }\r\n        return value;\r\n    })\r\n};\r\n\r\n/**\r\n * @param {{block: string, elem: string|undefined}} blockObj\r\n */\r\nconst factoryElement = function (blockObj) {\r\n    let name = blockObj.block;\r\n    if (blockObj.elem) {\r\n        name += '__' + blockObj.elem;\r\n    }\r\n    return name;\r\n};\r\n\r\nmodule.exports = {\r\n    OBJ_START,\r\n    OBJ_END,\r\n    SIZES,\r\n    FORM_ELEMENTS,\r\n    ELEMENTS: ELEMENTS,\r\n    countColumn,\r\n    findStartBlock,\r\n    findLineStart,\r\n    getBlock,\r\n    countLines,\r\n    findSize,\r\n    jsonParser,\r\n    factoryElement,\r\n};\n\n//# sourceURL=webpack:///./src/Validators/tools.js?");
+eval("const OBJ_START = \"{\";\r\nconst OBJ_END = \"}\";\r\nconst SIZES = ['xxxxs', 'xxxs', 'xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl', 'xxxxl', 'xxxxxl'];\r\nconst ELEMENTS = {\r\n    HEADER: 'form__header',\r\n    CONTENT: 'form__content',\r\n    LABEL: 'form__label',\r\n    INPUT: 'input',\r\n    BUTTON: 'button',\r\n    TEXT: 'text',\r\n};\r\nconst FORM_ELEMENTS = [ELEMENTS.LABEL, ELEMENTS.INPUT, ELEMENTS.BUTTON];\r\n\r\n/**\r\n * Считает накой по счету символ с начала строки\r\n * @param {string} obj\r\n * @param {number} position\r\n * @return {number}\r\n */\r\nconst countColumn = function (obj, position) {\r\n    return obj.substring(0, position).split(\"\\n\").pop().length + 1; //поправка что бы учитывался символ на указанной позиции\r\n};\r\n\r\n/**\r\n * Находит начало блока относительно указанного символа\r\n * @param {string} json\r\n * @param {number} position\r\n * @return {number}\r\n */\r\nconst findStartBlock = function (json, position) {\r\n    let substr = json.substring(0, position);\r\n    return substr.lastIndexOf(OBJ_START);\r\n};\r\n\r\n/**\r\n * Считает на какой строке указанный символ\r\n * @param {string} json\r\n * @param {number} position\r\n * @return {number}\r\n */\r\nconst findLineStart = function (json, position) {\r\n    return countLines(json.substring(0, findStartBlock(json, position)));\r\n};\r\n\r\n/**\r\n * Получить весь блок с указанного символа\r\n * @param {string} json\r\n * @param {number} position\r\n * @return {string}\r\n */\r\nconst getBlock = function (json, position) {\r\n    let substr = json.substring(position);\r\n    let cntObjStart = 0;\r\n    for (let symbolIndex = 1, length = substr.length; symbolIndex < length; symbolIndex++) {\r\n        let symbol = substr[symbolIndex];\r\n        if (symbol === OBJ_START) {\r\n            cntObjStart++;\r\n        } else if (symbol === OBJ_END) {\r\n            if (cntObjStart === 0) {\r\n                substr = substr.substring(0, symbolIndex + 1);\r\n                break;\r\n            }\r\n            cntObjStart--;\r\n        }\r\n    }\r\n    return substr;\r\n};\r\n\r\n/**\r\n * Считает сколько строк в строке\r\n * @param {string} json\r\n * @return {number}\r\n */\r\nconst countLines = function (json) {\r\n    return json.split(\"\\n\").length;\r\n};\r\n\r\n/**\r\n * Считает сколько строк в строке\r\n * @param {string} size\r\n * @return {number}\r\n */\r\nconst findSize = function (size) {\r\n    return SIZES.indexOf(size);\r\n};\r\n/**\r\n * @param string\r\n * @return Object\r\n */\r\nconst jsonParser = function (string) {\r\n    return JSON.parse(string, (key, value) => {\r\n        if (key === 'content') {\r\n            if (value instanceof Array) {\r\n            } else {\r\n                value = [value];\r\n            }\r\n        }\r\n        return value;\r\n    })\r\n};\r\n\r\n/**\r\n * @param {{block: string, elem: string|undefined}} blockObj\r\n */\r\nconst factoryElement = function (blockObj) {\r\n    let name = blockObj.block;\r\n    if (blockObj.elem) {\r\n        name += '__' + blockObj.elem;\r\n    }\r\n    return name;\r\n};\r\n\r\nmodule.exports = {\r\n    OBJ_START,\r\n    OBJ_END,\r\n    SIZES,\r\n    FORM_ELEMENTS,\r\n    ELEMENTS: ELEMENTS,\r\n    countColumn,\r\n    findStartBlock,\r\n    findLineStart,\r\n    getBlock,\r\n    countLines,\r\n    findSize,\r\n    jsonParser,\r\n    factoryElement,\r\n};\r\n\n\n//# sourceURL=webpack:///./src/Validators/tools.js?");
 
 /***/ }),
 
@@ -416,25 +460,25 @@ eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"li
 
 /***/ }),
 
-/***/ "./src/linter.js?68c3":
+/***/ "./src/linter.js":
 /*!***********************!*\
   !*** ./src/linter.js ***!
   \***********************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./linter.js */ \"./src/linter.js?9a37\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/linter.js?");
+eval("const VALIDATORS = [\r\n    __webpack_require__(/*! ./Validators/formValidator.js */ \"./src/Validators/formValidator.js-exposed\"),\r\n];\r\n/**\r\n * @param {string} obj\r\n * @return {(function(string): (Array|{code: string, message: string, locality: {start: {line: number, column: number}, end: {line: number, column: number}}}[]))|*|Array}\r\n */\r\nmodule.exports = function (obj) {\r\n    return VALIDATORS.reduce((errors, validator) => {\r\n        return errors.concat(validator(obj))\r\n    }, [])\r\n};\r\n\n\n//# sourceURL=webpack:///./src/linter.js?");
 
 /***/ }),
 
-/***/ "./src/linter.js?9a37":
-/*!***********************!*\
-  !*** ./src/linter.js ***!
-  \***********************/
+/***/ "./src/linter.js-exposed":
+/*!*******************************!*\
+  !*** ./src/linter.js-exposed ***!
+  \*******************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const VALIDATORS = [\r\n    __webpack_require__(/*! ./Validators/formValidator.js */ \"./src/Validators/formValidator.js-exposed\"),\r\n];\r\n\r\nmodule.exports = function (obj) {\r\n    return VALIDATORS.reduce((errors, validator) => {\r\n        return errors.concat(validator(obj))\r\n    }, [])\r\n};\n\n//# sourceURL=webpack:///./src/linter.js?");
+eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./linter.js */ \"./src/linter.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/linter.js-exposed?");
 
 /***/ })
 

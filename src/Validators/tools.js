@@ -2,6 +2,8 @@ const OBJ_START = "{";
 const OBJ_END = "}";
 const SIZES = ['xxxxs', 'xxxs', 'xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl', 'xxxxl', 'xxxxxl'];
 const ELEMENTS = {
+    HEADER: 'form__header',
+    CONTENT: 'form__content',
     LABEL: 'form__label',
     INPUT: 'input',
     BUTTON: 'button',

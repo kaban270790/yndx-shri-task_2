@@ -1,8 +1,9 @@
 const LinterError = require('../Errors/LinterError.js');
-const {findStartBlock, getBlock, jsonParser} = require('./tools.js');
+const {findStartBlock, getBlock, jsonParser, factoryElement, ELEMENTS} = require('./tools.js');
 const getReferenceSize = require('./getReferenceSize.js');
 const sizeValidator = require('./form/sizeValidator.js');
 const contentValidator = require('./form/contentValidator.js');
+const headerValidator = require('./form/headerValidator.js');
 
 /**
  * @param {string} originalBlockStr
@@ -25,18 +26,18 @@ module.exports = function (originalBlockStr) {
 /**
  *
  * @param {string} originalBlockStr
- * @param {number} startPositionBlock
+ * @param {number} startPositionFormBlock
  * @return {[{code:string,message:string,locality:{start:{line:number,column:number},end:{line:number,column:number}}}]}
  */
-const validate = function (originalBlockStr, startPositionBlock) {
+const validate = function (originalBlockStr, startPositionFormBlock) {
     let errors = [];
-    let blockStr = getBlock(originalBlockStr, startPositionBlock);
-    let referenceSize = getReferenceSize(blockStr);
+    let formBlockStr = getBlock(originalBlockStr, startPositionFormBlock);
+    let referenceSize = getReferenceSize(formBlockStr);
     if (!referenceSize) {
         return errors;
     }
     try {
-        sizeValidator(blockStr, referenceSize, originalBlockStr, startPositionBlock);
+        sizeValidator(formBlockStr, referenceSize, originalBlockStr, startPositionFormBlock);
     } catch (e) {
         if (e instanceof LinterError) {
             errors.push(e.getError());
@@ -44,9 +45,28 @@ const validate = function (originalBlockStr, startPositionBlock) {
             throw e;
         }
     }
-    let blockObj = jsonParser(blockStr);
-    if (blockObj.elem && blockObj.elem === 'content') {
-        errors = errors.concat(contentValidator(blockStr, referenceSize, originalBlockStr, startPositionBlock));
+    let blockObj = jsonParser(formBlockStr);
+    if (blockObj.elem) {
+        return errors;
+    }
+
+    let regExpForm = /"elem"(\s){0,}:(\s){0,}"(header|content)"/g;
+    while (true) {
+        let regExpFormResult = regExpForm.exec(formBlockStr);
+        if (!regExpFormResult) {
+            break;
+        }
+        let startPositionBlock = startPositionFormBlock + findStartBlock(formBlockStr, regExpFormResult.index);
+        let blockStr = getBlock(originalBlockStr, startPositionBlock);
+        let blockObj = jsonParser(blockStr);
+        switch (factoryElement(blockObj)) {
+            case ELEMENTS.CONTENT:
+                errors = errors.concat(contentValidator(blockStr, referenceSize, originalBlockStr, startPositionBlock));
+                break;
+            case ELEMENTS.HEADER:
+                errors = errors.concat(headerValidator(blockStr, referenceSize, originalBlockStr, startPositionBlock));
+                break;
+        }
     }
     return errors;
 };
