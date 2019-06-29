@@ -1,6 +1,7 @@
 const LinterError = require('../../Errors/LinterError.js');
 const spaceHorizontalValidator = require('./spaceHorizontalValidator.js');
 const spaceVerticalValidator = require('./spaceVerticalValidator.js');
+const contentItemsValidator = require('./contentItemsValidator.js');
 
 /**
  * @param {string} blockStr
@@ -29,5 +30,6 @@ module.exports = function (blockStr, referenceSize, originalBlockStr, startPosit
             throw e;
         }
     }
+    errors = errors.concat(contentItemsValidator(blockStr, referenceSize, originalBlockStr, startPositionBlock));
     return errors;
 };
