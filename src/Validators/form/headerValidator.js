@@ -1,5 +1,7 @@
 const FormHeaderSizeError = require('../../Errors/FormHeaderSizeError.js');
+const FormHeaderVerticalSpaceError = require('../../Errors/FormHeaderVerticalSpaceError.js');
 const {getBlock, findSize, jsonParser, findStartBlock} = require('../tools.js');
+const headerSpaceVerticalValidator = require('./headerSpaceVerticalValidator.js');
 
 /**
  * @param {string} blockStr
@@ -10,10 +12,18 @@ const {getBlock, findSize, jsonParser, findStartBlock} = require('../tools.js');
  * @throws FormSizeError
  */
 module.exports = function (blockStr, referenceSize, originalBlockStr, blockStartPosition) {
-
+    let errors = [];
+    try {
+        headerSpaceVerticalValidator(blockStr, referenceSize, originalBlockStr, blockStartPosition);
+    } catch (e) {
+        if (e instanceof FormHeaderVerticalSpaceError) {
+            errors.push(e.getError());
+        } else {
+            throw e;
+        }
+    }
     let regExpForm = /"block"(\s){0,}:(\s){0,}"text"/g;
     let positionContentItems = [];
-    let errors = [];
     while (true) {
         let regExpResult = regExpForm.exec(blockStr);
         if (!regExpResult) {

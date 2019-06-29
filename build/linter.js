@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/linter.js-exposed");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/linter.js?68c3");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -152,7 +152,7 @@ eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"li
 
 /***/ }),
 
-/***/ "./src/Errors/FormHeaderSizeError.js":
+/***/ "./src/Errors/FormHeaderSizeError.js?45ed":
 /*!*******************************************!*\
   !*** ./src/Errors/FormHeaderSizeError.js ***!
   \*******************************************/
@@ -163,18 +163,40 @@ eval("const FormError = __webpack_require__(/*! ./FormError.js */ \"./src/Errors
 
 /***/ }),
 
-/***/ "./src/Errors/FormHeaderSizeError.js-exposed":
-/*!***************************************************!*\
-  !*** ./src/Errors/FormHeaderSizeError.js-exposed ***!
-  \***************************************************/
+/***/ "./src/Errors/FormHeaderSizeError.js?df1a":
+/*!*******************************************!*\
+  !*** ./src/Errors/FormHeaderSizeError.js ***!
+  \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./FormHeaderSizeError.js */ \"./src/Errors/FormHeaderSizeError.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Errors/FormHeaderSizeError.js-exposed?");
+eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./FormHeaderSizeError.js */ \"./src/Errors/FormHeaderSizeError.js?45ed\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Errors/FormHeaderSizeError.js?");
 
 /***/ }),
 
-/***/ "./src/Errors/FormHorizontalSpaceError.js":
+/***/ "./src/Errors/FormHeaderVerticalSpaceError.js?51ed":
+/*!****************************************************!*\
+  !*** ./src/Errors/FormHeaderVerticalSpaceError.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./FormHeaderVerticalSpaceError.js */ \"./src/Errors/FormHeaderVerticalSpaceError.js?ead4\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Errors/FormHeaderVerticalSpaceError.js?");
+
+/***/ }),
+
+/***/ "./src/Errors/FormHeaderVerticalSpaceError.js?ead4":
+/*!****************************************************!*\
+  !*** ./src/Errors/FormHeaderVerticalSpaceError.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const FormError = __webpack_require__(/*! ./FormError.js */ \"./src/Errors/FormError.js-exposed\");\r\nconst CODE = \"FORM.HEADER_VERTICAL_SPACE_IS_INVALID\";\r\nconst MESSAGE = \"Вертикальный внутренний отступ заголовка формы должен быть задан с помощью микса на него элемента формы item со значением модификатора space-v, равным эталонному размеру\";\r\n\r\nclass FormHeaderVerticalSpaceError extends FormError {\r\n    /**\r\n     * @param {string} obj\r\n     * @param {number} positionStart\r\n     */\r\n    constructor(obj, positionStart) {\r\n        super(obj, positionStart, CODE, MESSAGE);\r\n    }\r\n}\r\n\r\nmodule.exports = FormHeaderVerticalSpaceError;\r\n\n\n//# sourceURL=webpack:///./src/Errors/FormHeaderVerticalSpaceError.js?");
+
+/***/ }),
+
+/***/ "./src/Errors/FormHorizontalSpaceError.js?af08":
 /*!************************************************!*\
   !*** ./src/Errors/FormHorizontalSpaceError.js ***!
   \************************************************/
@@ -185,14 +207,14 @@ eval("const FormError = __webpack_require__(/*! ./FormError.js */ \"./src/Errors
 
 /***/ }),
 
-/***/ "./src/Errors/FormHorizontalSpaceError.js-exposed":
-/*!********************************************************!*\
-  !*** ./src/Errors/FormHorizontalSpaceError.js-exposed ***!
-  \********************************************************/
+/***/ "./src/Errors/FormHorizontalSpaceError.js?e08e":
+/*!************************************************!*\
+  !*** ./src/Errors/FormHorizontalSpaceError.js ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./FormHorizontalSpaceError.js */ \"./src/Errors/FormHorizontalSpaceError.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Errors/FormHorizontalSpaceError.js-exposed?");
+eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./FormHorizontalSpaceError.js */ \"./src/Errors/FormHorizontalSpaceError.js?af08\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Errors/FormHorizontalSpaceError.js?");
 
 /***/ }),
 
@@ -306,6 +328,28 @@ eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"li
 
 /***/ }),
 
+/***/ "./src/Validators/form/headerSpaceVerticalValidator.js?380a":
+/*!*************************************************************!*\
+  !*** ./src/Validators/form/headerSpaceVerticalValidator.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const FormHeaderVerticalSpaceError = __webpack_require__(/*! ../../Errors/FormHeaderVerticalSpaceError.js */ \"./src/Errors/FormHeaderVerticalSpaceError.js?51ed\");\r\nconst {findSize, jsonParser} = __webpack_require__(/*! ../tools.js */ \"./src/Validators/tools.js-exposed\");\r\n\r\n/**\r\n * @param {string} blockStr\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormHeaderVerticalSpaceError\r\n */\r\nmodule.exports = function (blockStr, referenceSize, originalBlockStr, blockStartPosition) {\r\n    validate(jsonParser(blockStr), referenceSize, originalBlockStr, blockStartPosition);\r\n};\r\n/**\r\n * @param {{block: string, elem: string|undefined, content: Array|undefined, mix: Object|undefined}} blockObj\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormHeaderVerticalSpaceError\r\n */\r\nconst validate = function (blockObj, referenceSize, originalBlockStr, blockStartPosition) {\r\n    if (blockObj.mix) {\r\n        blockObj.mix.forEach((mix) => {\r\n            if (!validateMix(mix, referenceSize)) {\r\n                throw new FormHeaderVerticalSpaceError(originalBlockStr, blockStartPosition);\r\n            }\r\n        });\r\n    } else {\r\n        throw new FormHeaderVerticalSpaceError(originalBlockStr, blockStartPosition);\r\n    }\r\n};\r\n\r\n/**\r\n * @param {{block: string, elem: string|undefined, content: Array|undefined, mods: Object|undefined}} mix\r\n * @param {string} referenceSize\r\n *\r\n */\r\nconst validateMix = function (mix, referenceSize) {\r\n    if (mix.block === 'form' && mix.elem === 'item' && mix.mods['space-v']) {\r\n        return (findSize(mix.mods['space-v']) === findSize(referenceSize));\r\n    }\r\n    return true;\r\n};\r\n\n\n//# sourceURL=webpack:///./src/Validators/form/headerSpaceVerticalValidator.js?");
+
+/***/ }),
+
+/***/ "./src/Validators/form/headerSpaceVerticalValidator.js?8b87":
+/*!*************************************************************!*\
+  !*** ./src/Validators/form/headerSpaceVerticalValidator.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./headerSpaceVerticalValidator.js */ \"./src/Validators/form/headerSpaceVerticalValidator.js?380a\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Validators/form/headerSpaceVerticalValidator.js?");
+
+/***/ }),
+
 /***/ "./src/Validators/form/headerValidator.js":
 /*!************************************************!*\
   !*** ./src/Validators/form/headerValidator.js ***!
@@ -313,7 +357,7 @@ eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"li
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const FormHeaderSizeError = __webpack_require__(/*! ../../Errors/FormHeaderSizeError.js */ \"./src/Errors/FormHeaderSizeError.js-exposed\");\r\nconst {getBlock, findSize, jsonParser, findStartBlock} = __webpack_require__(/*! ../tools.js */ \"./src/Validators/tools.js-exposed\");\r\n\r\n/**\r\n * @param {string} blockStr\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormSizeError\r\n */\r\nmodule.exports = function (blockStr, referenceSize, originalBlockStr, blockStartPosition) {\r\n\r\n    let regExpForm = /\"block\"(\\s){0,}:(\\s){0,}\"text\"/g;\r\n    let positionContentItems = [];\r\n    let errors = [];\r\n    while (true) {\r\n        let regExpResult = regExpForm.exec(blockStr);\r\n        if (!regExpResult) {\r\n            break;\r\n        }\r\n        positionContentItems.push(blockStartPosition + findStartBlock(blockStr, regExpResult.index));\r\n    }\r\n    positionContentItems.forEach(function (position) {\r\n        let block = getBlock(originalBlockStr, position);\r\n        try {\r\n            validate(jsonParser(block), referenceSize, originalBlockStr, position)\r\n        } catch (e) {\r\n            if (e instanceof FormHeaderSizeError) {\r\n                errors.push(e.getError());\r\n            } else {\r\n                throw e;\r\n            }\r\n        }\r\n    });\r\n    return errors;\r\n};\r\n/**\r\n * @param {{block: string, elem: string|undefined, content: Array|undefined, mods: Object|undefined}} blockObj\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormContentItemIndentError\r\n */\r\nconst validate = function (blockObj, referenceSize, originalBlockStr, blockStartPosition) {\r\n    if (blockObj.mods && blockObj.mods.size) {\r\n        if ((findSize(blockObj.mods.size) - findSize(referenceSize)) !== 2) {\r\n            throw new FormHeaderSizeError(originalBlockStr, blockStartPosition);\r\n        }\r\n    } else {\r\n        throw new FormHeaderSizeError(originalBlockStr, blockStartPosition);\r\n    }\r\n};\r\n\n\n//# sourceURL=webpack:///./src/Validators/form/headerValidator.js?");
+eval("const FormHeaderSizeError = __webpack_require__(/*! ../../Errors/FormHeaderSizeError.js */ \"./src/Errors/FormHeaderSizeError.js?df1a\");\r\nconst FormHeaderVerticalSpaceError = __webpack_require__(/*! ../../Errors/FormHeaderVerticalSpaceError.js */ \"./src/Errors/FormHeaderVerticalSpaceError.js?51ed\");\r\nconst {getBlock, findSize, jsonParser, findStartBlock} = __webpack_require__(/*! ../tools.js */ \"./src/Validators/tools.js-exposed\");\r\nconst headerSpaceVerticalValidator = __webpack_require__(/*! ./headerSpaceVerticalValidator.js */ \"./src/Validators/form/headerSpaceVerticalValidator.js?8b87\");\r\n\r\n/**\r\n * @param {string} blockStr\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormSizeError\r\n */\r\nmodule.exports = function (blockStr, referenceSize, originalBlockStr, blockStartPosition) {\r\n    let errors = [];\r\n    try {\r\n        headerSpaceVerticalValidator(blockStr, referenceSize, originalBlockStr, blockStartPosition);\r\n    } catch (e) {\r\n        if (e instanceof FormHeaderVerticalSpaceError) {\r\n            errors.push(e.getError());\r\n        } else {\r\n            throw e;\r\n        }\r\n    }\r\n    let regExpForm = /\"block\"(\\s){0,}:(\\s){0,}\"text\"/g;\r\n    let positionContentItems = [];\r\n    while (true) {\r\n        let regExpResult = regExpForm.exec(blockStr);\r\n        if (!regExpResult) {\r\n            break;\r\n        }\r\n        positionContentItems.push(blockStartPosition + findStartBlock(blockStr, regExpResult.index));\r\n    }\r\n    positionContentItems.forEach(function (position) {\r\n        let block = getBlock(originalBlockStr, position);\r\n        try {\r\n            validate(jsonParser(block), referenceSize, originalBlockStr, position)\r\n        } catch (e) {\r\n            if (e instanceof FormHeaderSizeError) {\r\n                errors.push(e.getError());\r\n            } else {\r\n                throw e;\r\n            }\r\n        }\r\n    });\r\n    return errors;\r\n};\r\n/**\r\n * @param {{block: string, elem: string|undefined, content: Array|undefined, mods: Object|undefined}} blockObj\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormContentItemIndentError\r\n */\r\nconst validate = function (blockObj, referenceSize, originalBlockStr, blockStartPosition) {\r\n    if (blockObj.mods && blockObj.mods.size) {\r\n        if ((findSize(blockObj.mods.size) - findSize(referenceSize)) !== 2) {\r\n            throw new FormHeaderSizeError(originalBlockStr, blockStartPosition);\r\n        }\r\n    } else {\r\n        throw new FormHeaderSizeError(originalBlockStr, blockStartPosition);\r\n    }\r\n};\r\n\n\n//# sourceURL=webpack:///./src/Validators/form/headerValidator.js?");
 
 /***/ }),
 
@@ -357,7 +401,7 @@ eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"li
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const FormHorizontalSpaceError = __webpack_require__(/*! ../../Errors/FormHorizontalSpaceError.js */ \"./src/Errors/FormHorizontalSpaceError.js-exposed\");\r\nconst {findSize, jsonParser} = __webpack_require__(/*! ../tools.js */ \"./src/Validators/tools.js-exposed\");\r\n\r\n/**\r\n * @param {string} blockStr\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormSizeError\r\n */\r\nmodule.exports = function (blockStr, referenceSize, originalBlockStr, blockStartPosition) {\r\n    validate(jsonParser(blockStr), referenceSize, originalBlockStr, blockStartPosition);\r\n};\r\n/**\r\n * @param {{block: string, elem: string|undefined, content: Array|undefined, mix: Object|undefined}} blockObj\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormSizeError\r\n */\r\nconst validate = function (blockObj, referenceSize, originalBlockStr, blockStartPosition) {\r\n    if (blockObj.content) {\r\n        blockObj.content.map(blockObj => {\r\n            validate(blockObj, referenceSize, originalBlockStr, blockStartPosition)\r\n        });\r\n    }\r\n    if (blockObj.block === 'form' && blockObj.elem === 'content') {\r\n        if (blockObj.mix) {\r\n            blockObj.mix.forEach((mix) => {\r\n                if (!validateMix(mix, referenceSize)) {\r\n                    throw new FormHorizontalSpaceError(originalBlockStr, blockStartPosition);\r\n                }\r\n            });\r\n        }\r\n    }\r\n};\r\n\r\n/**\r\n * @param {{block: string, elem: string|undefined, content: Array|undefined, mods: Object|undefined}} mix\r\n * @param {string} referenceSize\r\n *\r\n */\r\nconst validateMix = function (mix, referenceSize) {\r\n    if (mix.block === 'form' && mix.elem === 'item' && mix.mods['space-h']) {\r\n        return ((findSize(mix.mods['space-h']) - findSize(referenceSize)) === 1);\r\n    }\r\n    return true;\r\n};\n\n//# sourceURL=webpack:///./src/Validators/form/spaceHorizontalValidator.js?");
+eval("const FormHorizontalSpaceError = __webpack_require__(/*! ../../Errors/FormHorizontalSpaceError.js */ \"./src/Errors/FormHorizontalSpaceError.js?e08e\");\r\nconst {findSize, jsonParser} = __webpack_require__(/*! ../tools.js */ \"./src/Validators/tools.js-exposed\");\r\n\r\n/**\r\n * @param {string} blockStr\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormSizeError\r\n */\r\nmodule.exports = function (blockStr, referenceSize, originalBlockStr, blockStartPosition) {\r\n    validate(jsonParser(blockStr), referenceSize, originalBlockStr, blockStartPosition);\r\n};\r\n/**\r\n * @param {{block: string, elem: string|undefined, content: Array|undefined, mix: Object|undefined}} blockObj\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormSizeError\r\n */\r\nconst validate = function (blockObj, referenceSize, originalBlockStr, blockStartPosition) {\r\n    if (blockObj.content) {\r\n        blockObj.content.map(blockObj => {\r\n            validate(blockObj, referenceSize, originalBlockStr, blockStartPosition)\r\n        });\r\n    }\r\n    if (blockObj.block === 'form' && blockObj.elem === 'content') {\r\n        if (blockObj.mix) {\r\n            blockObj.mix.forEach((mix) => {\r\n                if (!validateMix(mix, referenceSize)) {\r\n                    throw new FormHorizontalSpaceError(originalBlockStr, blockStartPosition);\r\n                }\r\n            });\r\n        }\r\n    }\r\n};\r\n\r\n/**\r\n * @param {{block: string, elem: string|undefined, content: Array|undefined, mods: Object|undefined}} mix\r\n * @param {string} referenceSize\r\n *\r\n */\r\nconst validateMix = function (mix, referenceSize) {\r\n    if (mix.block === 'form' && mix.elem === 'item' && mix.mods['space-h']) {\r\n        return ((findSize(mix.mods['space-h']) - findSize(referenceSize)) === 1);\r\n    }\r\n    return true;\r\n};\n\n//# sourceURL=webpack:///./src/Validators/form/spaceHorizontalValidator.js?");
 
 /***/ }),
 
@@ -460,7 +504,18 @@ eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"li
 
 /***/ }),
 
-/***/ "./src/linter.js":
+/***/ "./src/linter.js?68c3":
+/*!***********************!*\
+  !*** ./src/linter.js ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./linter.js */ \"./src/linter.js?9a37\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/linter.js?");
+
+/***/ }),
+
+/***/ "./src/linter.js?9a37":
 /*!***********************!*\
   !*** ./src/linter.js ***!
   \***********************/
@@ -468,17 +523,6 @@ eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"li
 /***/ (function(module, exports, __webpack_require__) {
 
 eval("const VALIDATORS = [\r\n    __webpack_require__(/*! ./Validators/formValidator.js */ \"./src/Validators/formValidator.js-exposed\"),\r\n];\r\n/**\r\n * @param {string} obj\r\n * @return {(function(string): (Array|{code: string, message: string, locality: {start: {line: number, column: number}, end: {line: number, column: number}}}[]))|*|Array}\r\n */\r\nmodule.exports = function (obj) {\r\n    return VALIDATORS.reduce((errors, validator) => {\r\n        return errors.concat(validator(obj))\r\n    }, [])\r\n};\r\n\n\n//# sourceURL=webpack:///./src/linter.js?");
-
-/***/ }),
-
-/***/ "./src/linter.js-exposed":
-/*!*******************************!*\
-  !*** ./src/linter.js-exposed ***!
-  \*******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./linter.js */ \"./src/linter.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/linter.js-exposed?");
 
 /***/ })
 
