@@ -279,7 +279,7 @@ describe("validate headers", function () {
         {
             "block": "form",
             "elem": "header",
-            "mix": [ { "block": "form", "elem": "item", "mods": { "space-v": "l" } } ]
+            "mix": [ { "block": "form", "elem": "item", "mods": { "space-v": "l", "space-h": "xl" } } ]
         },
         {
             "block": "input",
@@ -298,7 +298,7 @@ describe("validate headers", function () {
         {
             "block": "form",
             "elem": "header",
-            "mix": [ { "block": "form", "elem": "item", "mods": { "space-v": "s" } } ]
+            "mix": [ { "block": "form", "elem": "item", "mods": { "space-v": "s", "space-h": "xl" } } ]
         },
         {
             "block": "input",
@@ -312,6 +312,55 @@ describe("validate headers", function () {
                 {
                     "code": "FORM.HEADER_VERTICAL_SPACE_IS_INVALID",
                     "error": "Вертикальный внутренний отступ заголовка формы должен быть задан с помощью микса на него элемента формы item со значением модификатора space-v, равным эталонному размеру",
+                    "location": {
+                        "start": {"column": 9, "line": 4},
+                        "end": {"column": 10, "line": 8}
+                    }
+                }
+            ]);
+        });
+    });
+    describe("space-h", function () {
+        it("valid", function () {
+            let json = `{
+    "block": "form",
+    "content": [
+        {
+            "block": "form",
+            "elem": "header",
+            "mix": [ { "block": "form", "elem": "item", "mods": { "space-h": "xl" } } ]
+        },
+        {
+            "block": "input",
+            "mods": {
+                "size": "l"
+            }
+        }
+    ]
+}`;
+            assert.deepStrictEqual(lint(json), []);
+        });
+        it("invalid", function () {
+            let json = `{
+    "block": "form",
+    "content": [
+        {
+            "block": "form",
+            "elem": "header",
+            "mix": [ { "block": "form", "elem": "item", "mods": { "space-h": "s" } } ]
+        },
+        {
+            "block": "input",
+            "mods": {
+                "size": "l"
+            }
+        }
+    ]
+}`;
+            assert.deepStrictEqual(lint(json), [
+                {
+                    "code": "FORM.HEADER_HORIZONTAL_SPACE_IS_INVALID",
+                    "error": "Горизонтальный внутренний отступ должен быть на 1 шаг больше эталонного размера",
                     "location": {
                         "start": {"column": 9, "line": 4},
                         "end": {"column": 10, "line": 8}

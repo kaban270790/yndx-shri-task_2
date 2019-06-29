@@ -1,7 +1,9 @@
 const FormHeaderSizeError = require('../../Errors/FormHeaderSizeError.js');
 const FormHeaderVerticalSpaceError = require('../../Errors/FormHeaderVerticalSpaceError.js');
+const FormHeaderHorizontalSpaceError = require('../../Errors/FormHeaderHorizontalSpaceError.js');
 const {getBlock, findSize, jsonParser, findStartBlock} = require('../tools.js');
 const headerSpaceVerticalValidator = require('./headerSpaceVerticalValidator.js');
+const headerSpaceHorizontalValidator = require('./headerSpaceHorizontalValidator.js');
 
 /**
  * @param {string} blockStr
@@ -13,15 +15,9 @@ const headerSpaceVerticalValidator = require('./headerSpaceVerticalValidator.js'
  */
 module.exports = function (blockStr, referenceSize, originalBlockStr, blockStartPosition) {
     let errors = [];
-    try {
-        headerSpaceVerticalValidator(blockStr, referenceSize, originalBlockStr, blockStartPosition);
-    } catch (e) {
-        if (e instanceof FormHeaderVerticalSpaceError) {
-            errors.push(e.getError());
-        } else {
-            throw e;
-        }
-    }
+
+    errors = errors.concat(validateSpace(blockStr, referenceSize, originalBlockStr, blockStartPosition));
+
     let regExpForm = /"block"(\s){0,}:(\s){0,}"text"/g;
     let positionContentItems = [];
     while (true) {
@@ -61,4 +57,27 @@ const validate = function (blockObj, referenceSize, originalBlockStr, blockStart
     } else {
         throw new FormHeaderSizeError(originalBlockStr, blockStartPosition);
     }
+};
+
+const validateSpace = function (blockStr, referenceSize, originalBlockStr, blockStartPosition) {
+    let errors = [];
+    try {
+        headerSpaceVerticalValidator(blockStr, referenceSize, originalBlockStr, blockStartPosition);
+    } catch (e) {
+        if (e instanceof FormHeaderVerticalSpaceError) {
+            errors.push(e.getError());
+        } else {
+            throw e;
+        }
+    }
+    try {
+        headerSpaceHorizontalValidator(blockStr, referenceSize, originalBlockStr, blockStartPosition);
+    } catch (e) {
+        if (e instanceof FormHeaderHorizontalSpaceError) {
+            errors.push(e.getError());
+        } else {
+            throw e;
+        }
+    }
+    return errors;
 };

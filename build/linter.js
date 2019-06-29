@@ -152,6 +152,28 @@ eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"li
 
 /***/ }),
 
+/***/ "./src/Errors/FormHeaderHorizontalSpaceError.js?5474":
+/*!******************************************************!*\
+  !*** ./src/Errors/FormHeaderHorizontalSpaceError.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const FormError = __webpack_require__(/*! ./FormError.js */ \"./src/Errors/FormError.js-exposed\");\r\nconst CODE = \"FORM.HEADER_HORIZONTAL_SPACE_IS_INVALID\";\r\nconst MESSAGE = \"Горизонтальный внутренний отступ должен быть на 1 шаг больше эталонного размера\";\r\n\r\nclass FormHeaderVerticalSpaceError extends FormError {\r\n    /**\r\n     * @param {string} obj\r\n     * @param {number} positionStart\r\n     */\r\n    constructor(obj, positionStart) {\r\n        super(obj, positionStart, CODE, MESSAGE);\r\n    }\r\n}\r\n\r\nmodule.exports = FormHeaderVerticalSpaceError;\r\n\n\n//# sourceURL=webpack:///./src/Errors/FormHeaderHorizontalSpaceError.js?");
+
+/***/ }),
+
+/***/ "./src/Errors/FormHeaderHorizontalSpaceError.js?e4c1":
+/*!******************************************************!*\
+  !*** ./src/Errors/FormHeaderHorizontalSpaceError.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./FormHeaderHorizontalSpaceError.js */ \"./src/Errors/FormHeaderHorizontalSpaceError.js?5474\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Errors/FormHeaderHorizontalSpaceError.js?");
+
+/***/ }),
+
 /***/ "./src/Errors/FormHeaderSizeError.js?45ed":
 /*!*******************************************!*\
   !*** ./src/Errors/FormHeaderSizeError.js ***!
@@ -328,6 +350,28 @@ eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"li
 
 /***/ }),
 
+/***/ "./src/Validators/form/headerSpaceHorizontalValidator.js?2dc5":
+/*!***************************************************************!*\
+  !*** ./src/Validators/form/headerSpaceHorizontalValidator.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const FormHeaderHorizontalSpaceError = __webpack_require__(/*! ../../Errors/FormHeaderHorizontalSpaceError.js */ \"./src/Errors/FormHeaderHorizontalSpaceError.js?e4c1\");\r\nconst {findSize, jsonParser} = __webpack_require__(/*! ../tools.js */ \"./src/Validators/tools.js-exposed\");\r\n\r\n/**\r\n * @param {string} blockStr\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormHeaderHorizontalSpaceError\r\n */\r\nmodule.exports = function (blockStr, referenceSize, originalBlockStr, blockStartPosition) {\r\n    validate(jsonParser(blockStr), referenceSize, originalBlockStr, blockStartPosition);\r\n};\r\n/**\r\n * @param {{block: string, elem: string|undefined, content: Array|undefined, mix: Object|undefined}} blockObj\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormHeaderHorizontalSpaceError\r\n */\r\nconst validate = function (blockObj, referenceSize, originalBlockStr, blockStartPosition) {\r\n    if (blockObj.mix) {\r\n        blockObj.mix.forEach((mix) => {\r\n            if (!validateMix(mix, referenceSize)) {\r\n                throw new FormHeaderHorizontalSpaceError(originalBlockStr, blockStartPosition);\r\n            }\r\n        });\r\n    } else {\r\n        throw new FormHeaderHorizontalSpaceError(originalBlockStr, blockStartPosition);\r\n    }\r\n};\r\n\r\n/**\r\n * @param {{block: string, elem: string|undefined, content: Array|undefined, mods: Object|undefined}} mix\r\n * @param {string} referenceSize\r\n *\r\n */\r\nconst validateMix = function (mix, referenceSize) {\r\n    if (mix.block === 'form' && mix.elem === 'item' && mix.mods['space-h']) {\r\n        return (findSize(mix.mods['space-h']) - findSize(referenceSize)) === 1;\r\n    }\r\n    return true;\r\n};\r\n\n\n//# sourceURL=webpack:///./src/Validators/form/headerSpaceHorizontalValidator.js?");
+
+/***/ }),
+
+/***/ "./src/Validators/form/headerSpaceHorizontalValidator.js?c691":
+/*!***************************************************************!*\
+  !*** ./src/Validators/form/headerSpaceHorizontalValidator.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./headerSpaceHorizontalValidator.js */ \"./src/Validators/form/headerSpaceHorizontalValidator.js?2dc5\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Validators/form/headerSpaceHorizontalValidator.js?");
+
+/***/ }),
+
 /***/ "./src/Validators/form/headerSpaceVerticalValidator.js?380a":
 /*!*************************************************************!*\
   !*** ./src/Validators/form/headerSpaceVerticalValidator.js ***!
@@ -357,7 +401,7 @@ eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"li
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const FormHeaderSizeError = __webpack_require__(/*! ../../Errors/FormHeaderSizeError.js */ \"./src/Errors/FormHeaderSizeError.js?df1a\");\r\nconst FormHeaderVerticalSpaceError = __webpack_require__(/*! ../../Errors/FormHeaderVerticalSpaceError.js */ \"./src/Errors/FormHeaderVerticalSpaceError.js?51ed\");\r\nconst {getBlock, findSize, jsonParser, findStartBlock} = __webpack_require__(/*! ../tools.js */ \"./src/Validators/tools.js-exposed\");\r\nconst headerSpaceVerticalValidator = __webpack_require__(/*! ./headerSpaceVerticalValidator.js */ \"./src/Validators/form/headerSpaceVerticalValidator.js?8b87\");\r\n\r\n/**\r\n * @param {string} blockStr\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormSizeError\r\n */\r\nmodule.exports = function (blockStr, referenceSize, originalBlockStr, blockStartPosition) {\r\n    let errors = [];\r\n    try {\r\n        headerSpaceVerticalValidator(blockStr, referenceSize, originalBlockStr, blockStartPosition);\r\n    } catch (e) {\r\n        if (e instanceof FormHeaderVerticalSpaceError) {\r\n            errors.push(e.getError());\r\n        } else {\r\n            throw e;\r\n        }\r\n    }\r\n    let regExpForm = /\"block\"(\\s){0,}:(\\s){0,}\"text\"/g;\r\n    let positionContentItems = [];\r\n    while (true) {\r\n        let regExpResult = regExpForm.exec(blockStr);\r\n        if (!regExpResult) {\r\n            break;\r\n        }\r\n        positionContentItems.push(blockStartPosition + findStartBlock(blockStr, regExpResult.index));\r\n    }\r\n    positionContentItems.forEach(function (position) {\r\n        let block = getBlock(originalBlockStr, position);\r\n        try {\r\n            validate(jsonParser(block), referenceSize, originalBlockStr, position)\r\n        } catch (e) {\r\n            if (e instanceof FormHeaderSizeError) {\r\n                errors.push(e.getError());\r\n            } else {\r\n                throw e;\r\n            }\r\n        }\r\n    });\r\n    return errors;\r\n};\r\n/**\r\n * @param {{block: string, elem: string|undefined, content: Array|undefined, mods: Object|undefined}} blockObj\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormContentItemIndentError\r\n */\r\nconst validate = function (blockObj, referenceSize, originalBlockStr, blockStartPosition) {\r\n    if (blockObj.mods && blockObj.mods.size) {\r\n        if ((findSize(blockObj.mods.size) - findSize(referenceSize)) !== 2) {\r\n            throw new FormHeaderSizeError(originalBlockStr, blockStartPosition);\r\n        }\r\n    } else {\r\n        throw new FormHeaderSizeError(originalBlockStr, blockStartPosition);\r\n    }\r\n};\r\n\n\n//# sourceURL=webpack:///./src/Validators/form/headerValidator.js?");
+eval("const FormHeaderSizeError = __webpack_require__(/*! ../../Errors/FormHeaderSizeError.js */ \"./src/Errors/FormHeaderSizeError.js?df1a\");\r\nconst FormHeaderVerticalSpaceError = __webpack_require__(/*! ../../Errors/FormHeaderVerticalSpaceError.js */ \"./src/Errors/FormHeaderVerticalSpaceError.js?51ed\");\r\nconst FormHeaderHorizontalSpaceError = __webpack_require__(/*! ../../Errors/FormHeaderHorizontalSpaceError.js */ \"./src/Errors/FormHeaderHorizontalSpaceError.js?e4c1\");\r\nconst {getBlock, findSize, jsonParser, findStartBlock} = __webpack_require__(/*! ../tools.js */ \"./src/Validators/tools.js-exposed\");\r\nconst headerSpaceVerticalValidator = __webpack_require__(/*! ./headerSpaceVerticalValidator.js */ \"./src/Validators/form/headerSpaceVerticalValidator.js?8b87\");\r\nconst headerSpaceHorizontalValidator = __webpack_require__(/*! ./headerSpaceHorizontalValidator.js */ \"./src/Validators/form/headerSpaceHorizontalValidator.js?c691\");\r\n\r\n/**\r\n * @param {string} blockStr\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormSizeError\r\n */\r\nmodule.exports = function (blockStr, referenceSize, originalBlockStr, blockStartPosition) {\r\n    let errors = [];\r\n\r\n    errors = errors.concat(validateSpace(blockStr, referenceSize, originalBlockStr, blockStartPosition));\r\n\r\n    let regExpForm = /\"block\"(\\s){0,}:(\\s){0,}\"text\"/g;\r\n    let positionContentItems = [];\r\n    while (true) {\r\n        let regExpResult = regExpForm.exec(blockStr);\r\n        if (!regExpResult) {\r\n            break;\r\n        }\r\n        positionContentItems.push(blockStartPosition + findStartBlock(blockStr, regExpResult.index));\r\n    }\r\n    positionContentItems.forEach(function (position) {\r\n        let block = getBlock(originalBlockStr, position);\r\n        try {\r\n            validate(jsonParser(block), referenceSize, originalBlockStr, position)\r\n        } catch (e) {\r\n            if (e instanceof FormHeaderSizeError) {\r\n                errors.push(e.getError());\r\n            } else {\r\n                throw e;\r\n            }\r\n        }\r\n    });\r\n    return errors;\r\n};\r\n/**\r\n * @param {{block: string, elem: string|undefined, content: Array|undefined, mods: Object|undefined}} blockObj\r\n * @param {string} referenceSize\r\n * @param {string} originalBlockStr\r\n * @param {number} blockStartPosition\r\n *\r\n * @throws FormContentItemIndentError\r\n */\r\nconst validate = function (blockObj, referenceSize, originalBlockStr, blockStartPosition) {\r\n    if (blockObj.mods && blockObj.mods.size) {\r\n        if ((findSize(blockObj.mods.size) - findSize(referenceSize)) !== 2) {\r\n            throw new FormHeaderSizeError(originalBlockStr, blockStartPosition);\r\n        }\r\n    } else {\r\n        throw new FormHeaderSizeError(originalBlockStr, blockStartPosition);\r\n    }\r\n};\r\n\r\nconst validateSpace = function (blockStr, referenceSize, originalBlockStr, blockStartPosition) {\r\n    let errors = [];\r\n    try {\r\n        headerSpaceVerticalValidator(blockStr, referenceSize, originalBlockStr, blockStartPosition);\r\n    } catch (e) {\r\n        if (e instanceof FormHeaderVerticalSpaceError) {\r\n            errors.push(e.getError());\r\n        } else {\r\n            throw e;\r\n        }\r\n    }\r\n    try {\r\n        headerSpaceHorizontalValidator(blockStr, referenceSize, originalBlockStr, blockStartPosition);\r\n    } catch (e) {\r\n        if (e instanceof FormHeaderHorizontalSpaceError) {\r\n            errors.push(e.getError());\r\n        } else {\r\n            throw e;\r\n        }\r\n    }\r\n    return errors;\r\n};\r\n\n\n//# sourceURL=webpack:///./src/Validators/form/headerValidator.js?");
 
 /***/ }),
 
