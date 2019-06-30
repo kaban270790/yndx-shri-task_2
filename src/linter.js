@@ -1,5 +1,6 @@
 const VALIDATORS = [
     require('./Validators/formValidator.js'),
+    require('./Validators/textValidator.js'),
 ];
 /**
  * @param {string} obj

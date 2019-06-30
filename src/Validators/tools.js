@@ -111,6 +111,19 @@ const factoryElement = function (blockObj) {
     return name;
 };
 
+/**
+ * @param {{mods: Object}} blockObj
+ * @param {string} name
+ *
+ * @return string|undefined
+ */
+const getModValue = function (blockObj, name) {
+    if (blockObj.mods && blockObj.mods[name]) {
+        return blockObj.mods[name];
+    }
+    return undefined;
+};
+
 module.exports = {
     OBJ_START,
     OBJ_END,
@@ -125,4 +138,5 @@ module.exports = {
     findSize,
     jsonParser,
     factoryElement,
+    getModValue,
 };

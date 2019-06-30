@@ -372,6 +372,50 @@ eval("const {getBlock, findLineStart, countLines, countColumn} = __webpack_requi
 
 /***/ }),
 
+/***/ "./src/Errors/TextError.js":
+/*!*********************************!*\
+  !*** ./src/Errors/TextError.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const ValidateError = __webpack_require__(/*! ./LinterError.js */ \"./src/Errors/LinterError.js?3611\");\r\nclass TextError extends ValidateError {}\r\n\r\nmodule.exports = TextError;\r\n\n\n//# sourceURL=webpack:///./src/Errors/TextError.js?");
+
+/***/ }),
+
+/***/ "./src/Errors/TextError.js-exposed":
+/*!*****************************************!*\
+  !*** ./src/Errors/TextError.js-exposed ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./TextError.js */ \"./src/Errors/TextError.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Errors/TextError.js-exposed?");
+
+/***/ }),
+
+/***/ "./src/Errors/TextSeveralH1Error.js?57a0":
+/*!******************************************!*\
+  !*** ./src/Errors/TextSeveralH1Error.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./TextSeveralH1Error.js */ \"./src/Errors/TextSeveralH1Error.js?f885\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Errors/TextSeveralH1Error.js?");
+
+/***/ }),
+
+/***/ "./src/Errors/TextSeveralH1Error.js?f885":
+/*!******************************************!*\
+  !*** ./src/Errors/TextSeveralH1Error.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const TextError = __webpack_require__(/*! ./TextError.js */ \"./src/Errors/TextError.js-exposed\");\r\nconst CODE = \"TEXT.SEVERAL_H1\";\r\nconst MESSAGE = \"Заголовок первого уровня (блок text с модификатором type h1) должен быть один на странице\";\r\n\r\nclass TextSeveralH1Error extends TextError {\r\n    /**\r\n     * @param {string} obj\r\n     * @param {number} positionStart\r\n     */\r\n    constructor(obj, positionStart) {\r\n        super(obj, positionStart, CODE, MESSAGE);\r\n    }\r\n}\r\n\r\nmodule.exports = TextSeveralH1Error;\r\n\n\n//# sourceURL=webpack:///./src/Errors/TextSeveralH1Error.js?");
+
+/***/ }),
+
 /***/ "./src/Validators/form/contentItemsValidator.js":
 /*!******************************************************!*\
   !*** ./src/Validators/form/contentItemsValidator.js ***!
@@ -614,7 +658,7 @@ eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"li
 
 /***/ }),
 
-/***/ "./src/Validators/formValidator.js":
+/***/ "./src/Validators/formValidator.js?6727":
 /*!*****************************************!*\
   !*** ./src/Validators/formValidator.js ***!
   \*****************************************/
@@ -625,14 +669,14 @@ eval("const LinterError = __webpack_require__(/*! ../Errors/LinterError.js */ \"
 
 /***/ }),
 
-/***/ "./src/Validators/formValidator.js-exposed":
-/*!*************************************************!*\
-  !*** ./src/Validators/formValidator.js-exposed ***!
-  \*************************************************/
+/***/ "./src/Validators/formValidator.js?df67":
+/*!*****************************************!*\
+  !*** ./src/Validators/formValidator.js ***!
+  \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./formValidator.js */ \"./src/Validators/formValidator.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Validators/formValidator.js-exposed?");
+eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./formValidator.js */ \"./src/Validators/formValidator.js?6727\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Validators/formValidator.js?");
 
 /***/ }),
 
@@ -658,6 +702,50 @@ eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"li
 
 /***/ }),
 
+/***/ "./src/Validators/text/unitH1Validator.js?56f8":
+/*!************************************************!*\
+  !*** ./src/Validators/text/unitH1Validator.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./unitH1Validator.js */ \"./src/Validators/text/unitH1Validator.js?a2fb\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Validators/text/unitH1Validator.js?");
+
+/***/ }),
+
+/***/ "./src/Validators/text/unitH1Validator.js?a2fb":
+/*!************************************************!*\
+  !*** ./src/Validators/text/unitH1Validator.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const TextSeveralH1Error = __webpack_require__(/*! ../../Errors/TextSeveralH1Error.js */ \"./src/Errors/TextSeveralH1Error.js?57a0\");\r\nconst {findStartBlock, getBlock, getModValue, jsonParser} = __webpack_require__(/*! ../tools.js */ \"./src/Validators/tools.js?b543\");\r\n\r\n/**\r\n * @param {string} originalBlockStr\r\n * @return {Array|{code: string, message: string, locality: {start: {line: number, column: number}, end: {line: number, column: number}}}[]}\r\n */\r\nmodule.exports = function (originalBlockStr) {\r\n    let regExpForm = /\"block\"(\\s){0,}:(\\s){0,}\"text\"/g;\r\n    let errors = [];\r\n    let countH1 = 0;\r\n    while (true) {\r\n        let regExpFormResult = regExpForm.exec(originalBlockStr);\r\n        if (!regExpFormResult) {\r\n            break;\r\n        }\r\n        let startPositionBlock = findStartBlock(originalBlockStr, regExpFormResult.index);\r\n\r\n        try {\r\n            let blockObj = jsonParser(getBlock(originalBlockStr, startPositionBlock));\r\n            if (getModValue(blockObj, 'type') === 'h1') {\r\n                if (countH1 >= 1) {\r\n                    throw new TextSeveralH1Error(originalBlockStr, startPositionBlock);\r\n                }\r\n                countH1++;\r\n            }\r\n        } catch (e) {\r\n            if (e instanceof TextSeveralH1Error) {\r\n                errors.push(e.getError());\r\n            } else {\r\n                throw e;\r\n            }\r\n        }\r\n    }\r\n    return errors;\r\n};\r\n\n\n//# sourceURL=webpack:///./src/Validators/text/unitH1Validator.js?");
+
+/***/ }),
+
+/***/ "./src/Validators/textValidator.js":
+/*!*****************************************!*\
+  !*** ./src/Validators/textValidator.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const LinterError = __webpack_require__(/*! ../Errors/LinterError.js */ \"./src/Errors/LinterError.js?3611\");\r\nconst {findStartBlock, getBlock, jsonParser, factoryElement, ELEMENTS, getModValue} = __webpack_require__(/*! ./tools.js */ \"./src/Validators/tools.js?b543\");\r\nconst unitH1Validator = __webpack_require__(/*! ./text/unitH1Validator.js */ \"./src/Validators/text/unitH1Validator.js?56f8\");\r\n/**\r\n * @param {string} originalBlockStr\r\n * @return {Array|{code: string, message: string, locality: {start: {line: number, column: number}, end: {line: number, column: number}}}[]}\r\n */\r\nmodule.exports = function (originalBlockStr) {\r\n    let regExpForm = /\"block\"(\\s){0,}:(\\s){0,}\"text\"/g;\r\n    let errors = [];\r\n    errors = errors.concat(unitH1Validator(originalBlockStr));\r\n    // while (true) {\r\n    //     let regExpFormResult = regExpForm.exec(originalBlockStr);\r\n    //     if (!regExpFormResult) {\r\n    //         break;\r\n    //     }\r\n    //     // let startPositionBlock = findStartBlock(originalBlockStr, regExpFormResult.index);\r\n    //     // errors = errors.concat(validate(originalBlockStr, startPositionBlock));\r\n    // }\r\n    return errors;\r\n};\r\n\n\n//# sourceURL=webpack:///./src/Validators/textValidator.js?");
+
+/***/ }),
+
+/***/ "./src/Validators/textValidator.js-exposed":
+/*!*************************************************!*\
+  !*** ./src/Validators/textValidator.js-exposed ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./textValidator.js */ \"./src/Validators/textValidator.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Validators/textValidator.js-exposed?");
+
+/***/ }),
+
 /***/ "./src/Validators/tools.js?3e4f":
 /*!*********************************!*\
   !*** ./src/Validators/tools.js ***!
@@ -665,7 +753,7 @@ eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"li
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const OBJ_START = \"{\";\r\nconst OBJ_END = \"}\";\r\nconst SIZES = ['xxxxs', 'xxxs', 'xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl', 'xxxxl', 'xxxxxl'];\r\nconst ELEMENTS = {\r\n    FOOTER: 'form__footer',\r\n    HEADER: 'form__header',\r\n    CONTENT: 'form__content',\r\n    LABEL: 'form__label',\r\n    INPUT: 'input',\r\n    BUTTON: 'button',\r\n    TEXT: 'text',\r\n};\r\nconst FORM_ELEMENTS = [ELEMENTS.LABEL, ELEMENTS.INPUT, ELEMENTS.BUTTON];\r\n\r\n/**\r\n * Считает накой по счету символ с начала строки\r\n * @param {string} obj\r\n * @param {number} position\r\n * @return {number}\r\n */\r\nconst countColumn = function (obj, position) {\r\n    return obj.substring(0, position).split(\"\\n\").pop().length + 1; //поправка что бы учитывался символ на указанной позиции\r\n};\r\n\r\n/**\r\n * Находит начало блока относительно указанного символа\r\n * @param {string} json\r\n * @param {number} position\r\n * @return {number}\r\n */\r\nconst findStartBlock = function (json, position) {\r\n    let substr = json.substring(0, position);\r\n    return substr.lastIndexOf(OBJ_START);\r\n};\r\n\r\n/**\r\n * Считает на какой строке указанный символ\r\n * @param {string} json\r\n * @param {number} position\r\n * @return {number}\r\n */\r\nconst findLineStart = function (json, position) {\r\n    return countLines(json.substring(0, findStartBlock(json, position)));\r\n};\r\n\r\n/**\r\n * Получить весь блок с указанного символа\r\n * @param {string} json\r\n * @param {number} position\r\n * @return {string}\r\n */\r\nconst getBlock = function (json, position) {\r\n    let substr = json.substring(position);\r\n    let cntObjStart = 0;\r\n    for (let symbolIndex = 1, length = substr.length; symbolIndex < length; symbolIndex++) {\r\n        let symbol = substr[symbolIndex];\r\n        if (symbol === OBJ_START) {\r\n            cntObjStart++;\r\n        } else if (symbol === OBJ_END) {\r\n            if (cntObjStart === 0) {\r\n                substr = substr.substring(0, symbolIndex + 1);\r\n                break;\r\n            }\r\n            cntObjStart--;\r\n        }\r\n    }\r\n    return substr;\r\n};\r\n\r\n/**\r\n * Считает сколько строк в строке\r\n * @param {string} json\r\n * @return {number}\r\n */\r\nconst countLines = function (json) {\r\n    return json.split(\"\\n\").length;\r\n};\r\n\r\n/**\r\n * Считает сколько строк в строке\r\n * @param {string} size\r\n * @return {number}\r\n */\r\nconst findSize = function (size) {\r\n    return SIZES.indexOf(size);\r\n};\r\n/**\r\n * @param string\r\n * @return Object\r\n */\r\nconst jsonParser = function (string) {\r\n    return JSON.parse(string, (key, value) => {\r\n        if (key === 'content') {\r\n            if (value instanceof Array) {\r\n            } else {\r\n                value = [value];\r\n            }\r\n        }\r\n        return value;\r\n    })\r\n};\r\n\r\n/**\r\n * @param {{block: string, elem: string|undefined}} blockObj\r\n */\r\nconst factoryElement = function (blockObj) {\r\n    let name = blockObj.block;\r\n    if (blockObj.elem) {\r\n        name += '__' + blockObj.elem;\r\n    }\r\n    return name;\r\n};\r\n\r\nmodule.exports = {\r\n    OBJ_START,\r\n    OBJ_END,\r\n    SIZES,\r\n    FORM_ELEMENTS,\r\n    ELEMENTS: ELEMENTS,\r\n    countColumn,\r\n    findStartBlock,\r\n    findLineStart,\r\n    getBlock,\r\n    countLines,\r\n    findSize,\r\n    jsonParser,\r\n    factoryElement,\r\n};\r\n\n\n//# sourceURL=webpack:///./src/Validators/tools.js?");
+eval("const OBJ_START = \"{\";\r\nconst OBJ_END = \"}\";\r\nconst SIZES = ['xxxxs', 'xxxs', 'xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl', 'xxxxl', 'xxxxxl'];\r\nconst ELEMENTS = {\r\n    FOOTER: 'form__footer',\r\n    HEADER: 'form__header',\r\n    CONTENT: 'form__content',\r\n    LABEL: 'form__label',\r\n    INPUT: 'input',\r\n    BUTTON: 'button',\r\n    TEXT: 'text',\r\n};\r\nconst FORM_ELEMENTS = [ELEMENTS.LABEL, ELEMENTS.INPUT, ELEMENTS.BUTTON];\r\n\r\n/**\r\n * Считает накой по счету символ с начала строки\r\n * @param {string} obj\r\n * @param {number} position\r\n * @return {number}\r\n */\r\nconst countColumn = function (obj, position) {\r\n    return obj.substring(0, position).split(\"\\n\").pop().length + 1; //поправка что бы учитывался символ на указанной позиции\r\n};\r\n\r\n/**\r\n * Находит начало блока относительно указанного символа\r\n * @param {string} json\r\n * @param {number} position\r\n * @return {number}\r\n */\r\nconst findStartBlock = function (json, position) {\r\n    let substr = json.substring(0, position);\r\n    return substr.lastIndexOf(OBJ_START);\r\n};\r\n\r\n/**\r\n * Считает на какой строке указанный символ\r\n * @param {string} json\r\n * @param {number} position\r\n * @return {number}\r\n */\r\nconst findLineStart = function (json, position) {\r\n    return countLines(json.substring(0, findStartBlock(json, position)));\r\n};\r\n\r\n/**\r\n * Получить весь блок с указанного символа\r\n * @param {string} json\r\n * @param {number} position\r\n * @return {string}\r\n */\r\nconst getBlock = function (json, position) {\r\n    let substr = json.substring(position);\r\n    let cntObjStart = 0;\r\n    for (let symbolIndex = 1, length = substr.length; symbolIndex < length; symbolIndex++) {\r\n        let symbol = substr[symbolIndex];\r\n        if (symbol === OBJ_START) {\r\n            cntObjStart++;\r\n        } else if (symbol === OBJ_END) {\r\n            if (cntObjStart === 0) {\r\n                substr = substr.substring(0, symbolIndex + 1);\r\n                break;\r\n            }\r\n            cntObjStart--;\r\n        }\r\n    }\r\n    return substr;\r\n};\r\n\r\n/**\r\n * Считает сколько строк в строке\r\n * @param {string} json\r\n * @return {number}\r\n */\r\nconst countLines = function (json) {\r\n    return json.split(\"\\n\").length;\r\n};\r\n\r\n/**\r\n * Считает сколько строк в строке\r\n * @param {string} size\r\n * @return {number}\r\n */\r\nconst findSize = function (size) {\r\n    return SIZES.indexOf(size);\r\n};\r\n/**\r\n * @param string\r\n * @return Object\r\n */\r\nconst jsonParser = function (string) {\r\n    return JSON.parse(string, (key, value) => {\r\n        if (key === 'content') {\r\n            if (value instanceof Array) {\r\n            } else {\r\n                value = [value];\r\n            }\r\n        }\r\n        return value;\r\n    })\r\n};\r\n\r\n/**\r\n * @param {{block: string, elem: string|undefined}} blockObj\r\n */\r\nconst factoryElement = function (blockObj) {\r\n    let name = blockObj.block;\r\n    if (blockObj.elem) {\r\n        name += '__' + blockObj.elem;\r\n    }\r\n    return name;\r\n};\r\n\r\n/**\r\n * @param {{mods: Object}} blockObj\r\n * @param {string} name\r\n *\r\n * @return string|undefined\r\n */\r\nconst getModValue = function (blockObj, name) {\r\n    if (blockObj.mods && blockObj.mods[name]) {\r\n        return blockObj.mods[name];\r\n    }\r\n    return undefined;\r\n};\r\n\r\nmodule.exports = {\r\n    OBJ_START,\r\n    OBJ_END,\r\n    SIZES,\r\n    FORM_ELEMENTS,\r\n    ELEMENTS: ELEMENTS,\r\n    countColumn,\r\n    findStartBlock,\r\n    findLineStart,\r\n    getBlock,\r\n    countLines,\r\n    findSize,\r\n    jsonParser,\r\n    factoryElement,\r\n    getModValue,\r\n};\r\n\n\n//# sourceURL=webpack:///./src/Validators/tools.js?");
 
 /***/ }),
 
@@ -698,7 +786,7 @@ eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"li
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const VALIDATORS = [\r\n    __webpack_require__(/*! ./Validators/formValidator.js */ \"./src/Validators/formValidator.js-exposed\"),\r\n];\r\n/**\r\n * @param {string} obj\r\n * @return {(function(string): (Array|{code: string, message: string, locality: {start: {line: number, column: number}, end: {line: number, column: number}}}[]))|*|Array}\r\n */\r\nmodule.exports = function (obj) {\r\n    return VALIDATORS.reduce((errors, validator) => {\r\n        return errors.concat(validator(obj))\r\n    }, [])\r\n};\r\n\n\n//# sourceURL=webpack:///./src/linter.js?");
+eval("const VALIDATORS = [\r\n    __webpack_require__(/*! ./Validators/formValidator.js */ \"./src/Validators/formValidator.js?df67\"),\r\n    __webpack_require__(/*! ./Validators/textValidator.js */ \"./src/Validators/textValidator.js-exposed\"),\r\n];\r\n/**\r\n * @param {string} obj\r\n * @return {(function(string): (Array|{code: string, message: string, locality: {start: {line: number, column: number}, end: {line: number, column: number}}}[]))|*|Array}\r\n */\r\nmodule.exports = function (obj) {\r\n    return VALIDATORS.reduce((errors, validator) => {\r\n        return errors.concat(validator(obj))\r\n    }, [])\r\n};\r\n\n\n//# sourceURL=webpack:///./src/linter.js?");
 
 /***/ })
 
