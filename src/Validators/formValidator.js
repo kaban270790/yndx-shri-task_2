@@ -4,6 +4,7 @@ const getReferenceSize = require('./getReferenceSize.js');
 const sizeValidator = require('./form/sizeValidator.js');
 const contentValidator = require('./form/contentValidator.js');
 const headerValidator = require('./form/headerValidator.js');
+const footerValidator = require('./form/footerValidator.js');
 
 /**
  * @param {string} originalBlockStr
@@ -50,7 +51,7 @@ const validate = function (originalBlockStr, startPositionFormBlock) {
         return errors;
     }
 
-    let regExpForm = /"elem"(\s){0,}:(\s){0,}"(header|content)"/g;
+    let regExpForm = /"elem"(\s){0,}:(\s){0,}"(header|content|footer)"/g;
     while (true) {
         let regExpFormResult = regExpForm.exec(formBlockStr);
         if (!regExpFormResult) {
@@ -65,6 +66,9 @@ const validate = function (originalBlockStr, startPositionFormBlock) {
                 break;
             case ELEMENTS.HEADER:
                 errors = errors.concat(headerValidator(blockStr, referenceSize, originalBlockStr, startPositionBlock));
+                break;
+            case ELEMENTS.FOOTER:
+                errors = errors.concat(footerValidator(blockStr, referenceSize, originalBlockStr, startPositionBlock));
                 break;
         }
     }
