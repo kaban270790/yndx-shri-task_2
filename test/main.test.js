@@ -384,7 +384,7 @@ describe("validate footers", function () {
                 {
                     "block": "text",
                     "mods": {
-                        "size": "xxl"
+                        "size": "l"
                     }
                 }
             ]

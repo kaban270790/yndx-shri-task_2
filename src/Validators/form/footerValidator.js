@@ -51,7 +51,7 @@ module.exports = function (blockStr, referenceSize, originalBlockStr, blockStart
  */
 const validate = function (blockObj, referenceSize, originalBlockStr, blockStartPosition) {
     if (blockObj.mods && blockObj.mods.size) {
-        if ((findSize(blockObj.mods.size) - findSize(referenceSize)) !== 2) {
+        if ((findSize(blockObj.mods.size) - findSize(referenceSize)) !== 0) {
             throw new FormFooterSizeError(originalBlockStr, blockStartPosition);
         }
     } else {
