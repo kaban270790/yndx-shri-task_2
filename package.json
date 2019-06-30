@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --recursive test/**/*.test.js --recursive",
     "dev": "webpack --mode=development"
   },
   "repository": {
