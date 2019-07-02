@@ -1,4 +1,6 @@
 const LinterError = require('../Errors/LinterError.js');
+const ReferenceSizeError = require('../Errors/ReferenceSizeError.js');
+const FormSizeError = require('../Errors/FormSizeError.js');
 const {findStartBlock, getBlock, jsonParser, factoryElement, ELEMENTS} = require('./tools.js');
 const getReferenceSize = require('./getReferenceSize.js');
 const sizeValidator = require('./form/sizeValidator.js');
@@ -33,11 +35,16 @@ module.exports = function (originalBlockStr) {
 const validate = function (originalBlockStr, startPositionFormBlock) {
     let errors = [];
     let formBlockStr = getBlock(originalBlockStr, startPositionFormBlock);
-    let referenceSize = getReferenceSize(formBlockStr);
-    if (!referenceSize) {
+    let referenceSize;
+    let blockObj = jsonParser(formBlockStr);
+    if (blockObj.elem) {
         return errors;
     }
     try {
+        referenceSize = getReferenceSize(originalBlockStr, startPositionFormBlock);
+        if (!referenceSize) {
+            return errors;
+        }
         sizeValidator(formBlockStr, referenceSize, originalBlockStr, startPositionFormBlock);
     } catch (e) {
         if (e instanceof LinterError) {
@@ -45,10 +52,6 @@ const validate = function (originalBlockStr, startPositionFormBlock) {
         } else {
             throw e;
         }
-    }
-    let blockObj = jsonParser(formBlockStr);
-    if (blockObj.elem) {
-        return errors;
     }
 
     let regExpForm = /"elem"(\s){0,}:(\s){0,}"(header|content|footer)"/g;

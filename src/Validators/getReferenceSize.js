@@ -1,21 +1,25 @@
-const {FORM_ELEMENTS, ELEMENTS, factoryElement, jsonParser} = require('./tools.js');
-
+const {FORM_ELEMENTS, ELEMENTS, factoryElement, jsonParser, getModValue, getBlock} = require('./tools.js');
+const FormSizeError = require('../Errors/FormSizeError.js');
 /**
- * @param {string} blockStr
+ * @param {string} originalBlockStr
+ * @param {number} startPositionFormBlock
  * @return {string|null}
  */
-module.exports = function (blockStr) {
-    return find(jsonParser(blockStr));//todo в идеале бы кидать ошибку если размер не найден в форме, а элементы присутствуют
+module.exports = function (originalBlockStr, startPositionFormBlock) {
+    let blockStr = getBlock(originalBlockStr, startPositionFormBlock);
+    return find(jsonParser(blockStr), originalBlockStr, startPositionFormBlock);
 };
 /**
  * @param {{block: string, content: Array|undefined, mods: Object|undefined}} blockObj
+ * @param {string} originalBlockStr
+ * @param {number} startPositionFormBlock
  * @return {string|null}
  */
-const find = function (blockObj) {
+const find = function (blockObj, originalBlockStr, startPositionFormBlock) {
     let size = null;
     if (blockObj.content) {
         for (let i = 0, l = blockObj.content.length; i < l; i++) {
-            let size = find(blockObj.content[i]);
+            let size = find(blockObj.content[i], originalBlockStr, startPositionFormBlock);
             if (size) {
                 return size;
             }
@@ -23,6 +27,9 @@ const find = function (blockObj) {
     }
     if (FORM_ELEMENTS.indexOf(factoryElement(blockObj)) !== -1) {
         size = getSize(blockObj);
+        if (!size) {
+            throw new FormSizeError(originalBlockStr, startPositionFormBlock);
+        }
     }
     return size;
 };
@@ -34,15 +41,15 @@ const getSize = function (blockObj) {
     let size = null;
     if (factoryElement(blockObj) === ELEMENTS.LABEL) {
         for (let i = 0, l = blockObj.content.length; i < l; i++) {
-            if (blockObj.content[i].block === ELEMENTS.TEXT) {
+            if (factoryElement(blockObj.content[i]) === ELEMENTS.TEXT) {
                 size = getSize(blockObj.content[i]);
                 if (size) {
                     break;
                 }
             }
         }
-    } else if (blockObj.mods && blockObj.mods.size) {
-        size = blockObj.mods.size
+    } else {
+        size = getModValue(blockObj, 'size');
     }
     return size;
 };
