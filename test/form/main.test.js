@@ -82,6 +82,66 @@ describe("form main", function () {
                 }
             ]);
         });
+        describe("Multi-form", function () {
+            it("Valid", function () {
+                assert.deepStrictEqual(lint(
+                    `{
+    "block":"payment",
+    "content":[
+        {"block": "form","content": [{"block": "form","elem": "label","content": {"block": "text","mods": {"size": "xxl"}}},{"block": "input","mods": {"size": "xxl"}}]},
+        {"block": "form","content": [{"block": "form","elem": "label","content": {"block": "text","mods": {"size": "xxl"}}},{"block": "input","mods": {"size": "xxl"}}]}
+    ]
+}`
+                ), []);
+            });
+            it("error size", function () {
+                assert.deepStrictEqual(lint(
+                    `{
+    "block":"payment",
+    "content":[
+        {"block": "form","content": [{"block": "form","elem": "label","content": {"block": "text","mods": {"size": "xxl"}}},{"block": "input","mods": {"size": "xxl"}}]},
+        {"block": "form","content": [{"block": "form","elem": "label","content": {"block": "text","mods": {"size": "xxl"}}},{"block": "input","mods": {"size": "xl"}}]}
+    ]
+}`
+                ), [
+                    {
+                        "code": "FORM.INPUT_AND_LABEL_SIZES_SHOULD_BE_EQUAL",
+                        "error": "Подписи и поля в форме должны быть одного размера",
+                        "location": {
+                            "start": {"column": 9, "line": 5},
+                            "end": {"column": 168, "line": 5}
+                        }
+                    }
+                ]);
+            });
+            it("two errors in size", function () {
+                assert.deepStrictEqual(lint(
+                    `{
+    "block":"payment",
+    "content":[
+        {"block": "form","content": [{"block": "form","elem": "label","content": {"block": "text","mods": {"size": "xxl"}}},{"block": "input","mods": {"size": "xxxl"}}]},
+        {"block": "form","content": [{"block": "form","elem": "label","content": {"block": "text","mods": {"size": "xxl"}}},{"block": "input","mods": {"size": "xl"}}]}
+    ]
+}`
+                ), [
+                    {
+                        "code": "FORM.INPUT_AND_LABEL_SIZES_SHOULD_BE_EQUAL",
+                        "error": "Подписи и поля в форме должны быть одного размера",
+                        "location": {
+                            "start": {"column": 9, "line": 4},
+                            "end": {"column": 170, "line": 4}
+                        }
+                    }, {
+                        "code": "FORM.INPUT_AND_LABEL_SIZES_SHOULD_BE_EQUAL",
+                        "error": "Подписи и поля в форме должны быть одного размера",
+                        "location": {
+                            "start": {"column": 9, "line": 5},
+                            "end": {"column": 168, "line": 5}
+                        }
+                    }
+                ]);
+            });
+        });
     });
     describe("validation spaces", function () {
         describe("horizontal", function () {
