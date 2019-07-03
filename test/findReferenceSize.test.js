@@ -1,9 +1,11 @@
 const assert = require("assert");
 const findReferenceSize = require("../src/Validators/getReferenceSize.js");
-const {it} = require("mocha");
+const {describe, it} = require("mocha");
 const FormSizeError = require("../src/Errors/FormSizeError.js");
-it('get reference size xl', function () {
-    const json = `{
+
+describe("get reference", function () {
+    it('size xl', function () {
+        const json = `{
         "block": "form",
         "content": [
             {
@@ -20,10 +22,10 @@ it('get reference size xl', function () {
             }
         ]
     }`;
-    assert.strictEqual(findReferenceSize(json, 0), "xl");
-});
-it('get reference size l', function () {
-    let json = `{
+        assert.strictEqual(findReferenceSize(json, 0), "xl");
+    });
+    it('size l', function () {
+        let json = `{
     "block": "form",
     "content": [
         {
@@ -46,10 +48,10 @@ it('get reference size l', function () {
         }
     ]
 }`;
-    assert.strictEqual(findReferenceSize(json, 0), "l");
-});
-it('no size specified', function () {
-    let json = `{
+        assert.strictEqual(findReferenceSize(json, 0), "l");
+    });
+    it('no size specified', function () {
+        let json = `{
     "block": "form",
     "content": [
         {
@@ -67,10 +69,10 @@ it('no size specified', function () {
         }
     ]
 }`;
-    assert.throws(() => findReferenceSize(json, 0), FormSizeError);
-});
-it('no blocks to determine size', function () {
-    let json = `{
+        assert.throws(() => findReferenceSize(json, 0), FormSizeError);
+    });
+    it('no blocks to determine size', function () {
+        let json = `{
     "block": "form",
     "content": [
         {
@@ -81,5 +83,6 @@ it('no blocks to determine size', function () {
         }
     ]
 }`;
-    assert.strictEqual(findReferenceSize(json, 0), null);
+        assert.strictEqual(findReferenceSize(json, 0), null);
+    });
 });
