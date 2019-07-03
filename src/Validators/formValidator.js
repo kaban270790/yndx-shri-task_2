@@ -1,7 +1,7 @@
 const LinterError = require('../Errors/LinterError.js');
 const {findStartBlock, getBlock, jsonParser, factoryElement, ELEMENTS} = require('./tools.js');
 const getReferenceSize = require('./getReferenceSize.js');
-const sizeValidator = require('./form/sizeValidator.js');
+const sizeValidator = require('./form/contentSizeValidator.js');
 const contentValidator = require('./form/contentValidator.js');
 const headerValidator = require('./form/headerValidator.js');
 const footerValidator = require('./form/footerValidator.js');

@@ -1,6 +1,6 @@
 const LinterError = require('../../Errors/LinterError.js');
-const spaceHorizontalValidator = require('./spaceHorizontalValidator.js');
-const spaceVerticalValidator = require('./spaceVerticalValidator.js');
+const spaceHorizontalValidator = require('./contentSpaceHorizontalValidator.js');
+const spaceVerticalValidator = require('./contentSpaceVerticalValidator.js');
 const contentItemsValidator = require('./contentItemsValidator.js');
 
 /**
