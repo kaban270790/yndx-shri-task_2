@@ -5,6 +5,7 @@ const ELEMENTS = {
     FOOTER: 'form__footer',
     HEADER: 'form__header',
     CONTENT: 'form__content',
+    ITEM: 'form__item',
     LABEL: 'form__label',
     INPUT: 'input',
     BUTTON: 'button',
@@ -123,6 +124,17 @@ const getModValue = function (blockObj, name) {
     }
     return undefined;
 };
+/**
+ * @param {{mods: Object}} blockObj
+ * @param {string} referenceSize
+ * @param {string} modName
+ * @param {number} step
+ * @return {boolean}
+ */
+const checkSize = function (blockObj, referenceSize, modName, step) {
+    let value = getModValue(blockObj, modName);
+    return value && (findSize(value) - findSize(referenceSize)) === step;
+};
 
 module.exports = {
     OBJ_START,
@@ -139,4 +151,5 @@ module.exports = {
     jsonParser,
     factoryElement,
     getModValue,
+    checkSize,
 };

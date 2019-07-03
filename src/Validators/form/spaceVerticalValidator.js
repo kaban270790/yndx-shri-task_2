@@ -1,5 +1,5 @@
 const FormVerticalSpaceError = require('../../Errors/FormVerticalSpaceError.js');
-const {findSize, jsonParser} = require('../tools.js');
+const {jsonParser, factoryElement, ELEMENTS, checkSize} = require('../tools.js');
 
 /**
  * @param {string} blockStr
@@ -26,25 +26,22 @@ const validate = function (blockObj, referenceSize, originalBlockStr, blockStart
             validate(blockObj, referenceSize, originalBlockStr, blockStartPosition)
         });
     }
-    if (blockObj.block === 'form' && blockObj.elem === 'content') {
+    if (factoryElement(blockObj) === ELEMENTS.CONTENT) {
+        let hasElementItem = false;
         if (blockObj.mix) {
-            blockObj.mix.forEach((mix) => {
-                if (!validateMix(mix, referenceSize)) {
-                    throw new FormVerticalSpaceError(originalBlockStr, blockStartPosition);
+            for (let i = 0, l = blockObj.mix.length; i < l; i++) {
+                let mix = blockObj.mix[i];
+                if (factoryElement(mix) === ELEMENTS.ITEM) {
+                    hasElementItem = true;
+                    if (!checkSize(mix, referenceSize, 'space-v', 2)) {
+                        throw new FormVerticalSpaceError(originalBlockStr, blockStartPosition);
+                    }
+                    break;
                 }
-            });
+            }
+        }
+        if (!hasElementItem) {
+            throw new FormVerticalSpaceError(originalBlockStr, blockStartPosition);
         }
     }
-};
-
-/**
- * @param {{block: string, elem: string|undefined, content: Array|undefined, mods: Object|undefined}} mix
- * @param {string} referenceSize
- *
- */
-const validateMix = function (mix, referenceSize) {
-    if (mix.block === 'form' && mix.elem === 'item' && mix.mods['space-v']) {
-        return ((findSize(mix.mods['space-v']) - findSize(referenceSize)) === 2);
-    }
-    return true;
 };

@@ -21,7 +21,8 @@ describe("form content indent", function () {
                 "elem":  "content-item",
                 "content": { "block": "input", "mods": { "size": "l" } }
             }
-        ]
+        ],
+        "mix": [{ "block": "form", "elem": "item", "mods": {  "space-v": "xxl", "space-h": "xl" } }]
     }
 }`;
         assert.deepStrictEqual(lint(json), []);
@@ -44,7 +45,8 @@ describe("form content indent", function () {
                 "elem":  "content-item",
                 "content": { "block": "input", "mods": { "size": "l" } }
             }
-        ]
+        ],
+        "mix": [{ "block": "form", "elem": "item", "mods": {  "space-v": "xxl", "space-h": "xl" } }]
     }
 }`;
         assert.deepStrictEqual(lint(
@@ -59,6 +61,5 @@ describe("form content indent", function () {
                 }
             }
         ]);
-    })
-
+    });
 });
