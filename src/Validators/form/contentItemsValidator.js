@@ -1,5 +1,5 @@
 const FormContentItemIndentError = require('../../Errors/FormContentItemIndentError.js');
-const {getBlock, findSize, jsonParser, findStartBlock} = require('../tools.js');
+const {getBlock, findSize, jsonParser, findStartBlock, ELEMENTS, factoryElement, getModValue, checkSize} = require('../tools.js');
 
 /**
  * @param {string} blockStr
@@ -64,8 +64,12 @@ const validate = function (blockObj, referenceSize, originalBlockStr, blockStart
  * @return {boolean}
  */
 const validateMix = function (mix, referenceSize, isRequire) {
-    if (mix.block === 'form' && mix.elem === 'item' && mix.mods['indent-b'] && isRequire) {
-        return ((findSize(mix.mods['indent-b']) - findSize(referenceSize)) === 1);
+    if (factoryElement(mix) === ELEMENTS.ITEM) {
+        let size = getModValue(mix, 'indent-b');
+        if (size) {
+            return isRequire && checkSize(mix, referenceSize, 'indent-b', 1);
+        }
+        return !isRequire;
     }
-    return !isRequire;
+    return true;
 };
