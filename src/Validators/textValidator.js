@@ -1,6 +1,7 @@
 const LinterError = require('../Errors/LinterError.js');
 const {findStartBlock, getBlock, jsonParser, factoryElement, ELEMENTS, getModValue} = require('./tools.js');
 const unitH1Validator = require('./text/unitH1Validator.js');
+const unitPositionValidator = require('./text/unitPositionValidator.js');
 /**
  * @param {string} originalBlockStr
  * @return {Array|{code: string, message: string, locality: {start: {line: number, column: number}, end: {line: number, column: number}}}[]}
@@ -8,7 +9,7 @@ const unitH1Validator = require('./text/unitH1Validator.js');
 module.exports = function (originalBlockStr) {
     let regExpForm = /"block"(\s){0,}:(\s){0,}"text"/g;
     let errors = [];
-    errors = errors.concat(unitH1Validator(originalBlockStr));
+    errors = errors.concat(unitH1Validator(originalBlockStr), unitPositionValidator(originalBlockStr));
     // while (true) {
     //     let regExpFormResult = regExpForm.exec(originalBlockStr);
     //     if (!regExpFormResult) {

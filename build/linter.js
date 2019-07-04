@@ -372,7 +372,18 @@ eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"li
 
 /***/ }),
 
-/***/ "./src/Errors/TextError.js":
+/***/ "./src/Errors/TextError.js?ab10":
+/*!*********************************!*\
+  !*** ./src/Errors/TextError.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./TextError.js */ \"./src/Errors/TextError.js?c619\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Errors/TextError.js?");
+
+/***/ }),
+
+/***/ "./src/Errors/TextError.js?c619":
 /*!*********************************!*\
   !*** ./src/Errors/TextError.js ***!
   \*********************************/
@@ -383,14 +394,47 @@ eval("const ValidateError = __webpack_require__(/*! ./LinterError.js */ \"./src/
 
 /***/ }),
 
-/***/ "./src/Errors/TextError.js-exposed":
-/*!*****************************************!*\
-  !*** ./src/Errors/TextError.js-exposed ***!
-  \*****************************************/
+/***/ "./src/Errors/TextH2PositionError.js?90c4":
+/*!*******************************************!*\
+  !*** ./src/Errors/TextH2PositionError.js ***!
+  \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./TextError.js */ \"./src/Errors/TextError.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Errors/TextError.js-exposed?");
+eval("const TextError = __webpack_require__(/*! ./TextError.js */ \"./src/Errors/TextError.js?ab10\");\r\nconst CODE = \"TEXT.INVALID_H2_POSITION\";\r\nconst MESSAGE = \"Заголовок второго уровня (блок text с модификатором type h2) не может следовать перед заголовком первого уровня на одном или более глубоком уровне вложенности.\";\r\n\r\nclass TextH2PositionError extends TextError {\r\n    /**\r\n     * @param {string} obj\r\n     * @param {number} positionStart\r\n     */\r\n    constructor(obj, positionStart) {\r\n        super(obj, positionStart, CODE, MESSAGE);\r\n    }\r\n}\r\n\r\nmodule.exports = TextH2PositionError;\r\n\n\n//# sourceURL=webpack:///./src/Errors/TextH2PositionError.js?");
+
+/***/ }),
+
+/***/ "./src/Errors/TextH2PositionError.js?b1b8":
+/*!*******************************************!*\
+  !*** ./src/Errors/TextH2PositionError.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./TextH2PositionError.js */ \"./src/Errors/TextH2PositionError.js?90c4\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Errors/TextH2PositionError.js?");
+
+/***/ }),
+
+/***/ "./src/Errors/TextH3PositionError.js?1d80":
+/*!*******************************************!*\
+  !*** ./src/Errors/TextH3PositionError.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./TextH3PositionError.js */ \"./src/Errors/TextH3PositionError.js?20cf\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Errors/TextH3PositionError.js?");
+
+/***/ }),
+
+/***/ "./src/Errors/TextH3PositionError.js?20cf":
+/*!*******************************************!*\
+  !*** ./src/Errors/TextH3PositionError.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const TextError = __webpack_require__(/*! ./TextError.js */ \"./src/Errors/TextError.js?ab10\");\r\nconst CODE = \"TEXT.INVALID_H3_POSITION\";\r\nconst MESSAGE = \"Заголовок третьего уровня (блок text с модификатором type h3) не может следовать перед заголовком второго уровня на одном или более глубоком уровне вложенности\";\r\n\r\nclass TextH3PositionError extends TextError {\r\n    /**\r\n     * @param {string} obj\r\n     * @param {number} positionStart\r\n     */\r\n    constructor(obj, positionStart) {\r\n        super(obj, positionStart, CODE, MESSAGE);\r\n    }\r\n}\r\n\r\nmodule.exports = TextH3PositionError;\r\n\n\n//# sourceURL=webpack:///./src/Errors/TextH3PositionError.js?");
 
 /***/ }),
 
@@ -401,7 +445,7 @@ eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"li
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const TextError = __webpack_require__(/*! ./TextError.js */ \"./src/Errors/TextError.js-exposed\");\r\nconst CODE = \"TEXT.SEVERAL_H1\";\r\nconst MESSAGE = \"Заголовок первого уровня (блок text с модификатором type h1) должен быть один на странице\";\r\n\r\nclass TextSeveralH1Error extends TextError {\r\n    /**\r\n     * @param {string} obj\r\n     * @param {number} positionStart\r\n     */\r\n    constructor(obj, positionStart) {\r\n        super(obj, positionStart, CODE, MESSAGE);\r\n    }\r\n}\r\n\r\nmodule.exports = TextSeveralH1Error;\r\n\n\n//# sourceURL=webpack:///./src/Errors/TextSeveralH1Error.js?");
+eval("const TextError = __webpack_require__(/*! ./TextError.js */ \"./src/Errors/TextError.js?ab10\");\r\nconst CODE = \"TEXT.SEVERAL_H1\";\r\nconst MESSAGE = \"Заголовок первого уровня (блок text с модификатором type h1) должен быть один на странице\";\r\n\r\nclass TextSeveralH1Error extends TextError {\r\n    /**\r\n     * @param {string} obj\r\n     * @param {number} positionStart\r\n     */\r\n    constructor(obj, positionStart) {\r\n        super(obj, positionStart, CODE, MESSAGE);\r\n    }\r\n}\r\n\r\nmodule.exports = TextSeveralH1Error;\r\n\n\n//# sourceURL=webpack:///./src/Errors/TextSeveralH1Error.js?");
 
 /***/ }),
 
@@ -702,7 +746,18 @@ eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"li
 
 /***/ }),
 
-/***/ "./src/Validators/text/unitH1Validator.js":
+/***/ "./src/Validators/text/unitH1Validator.js?56f8":
+/*!************************************************!*\
+  !*** ./src/Validators/text/unitH1Validator.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./unitH1Validator.js */ \"./src/Validators/text/unitH1Validator.js?a2fb\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Validators/text/unitH1Validator.js?");
+
+/***/ }),
+
+/***/ "./src/Validators/text/unitH1Validator.js?a2fb":
 /*!************************************************!*\
   !*** ./src/Validators/text/unitH1Validator.js ***!
   \************************************************/
@@ -713,14 +768,25 @@ eval("const TextSeveralH1Error = __webpack_require__(/*! ../../Errors/TextSevera
 
 /***/ }),
 
-/***/ "./src/Validators/text/unitH1Validator.js-exposed":
-/*!********************************************************!*\
-  !*** ./src/Validators/text/unitH1Validator.js-exposed ***!
-  \********************************************************/
+/***/ "./src/Validators/text/unitPositionValidator.js?3f4d":
+/*!******************************************************!*\
+  !*** ./src/Validators/text/unitPositionValidator.js ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./unitH1Validator.js */ \"./src/Validators/text/unitH1Validator.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Validators/text/unitH1Validator.js-exposed?");
+eval("const TextH2PositionError = __webpack_require__(/*! ../../Errors/TextH2PositionError.js */ \"./src/Errors/TextH2PositionError.js?b1b8\");\r\nconst TextH3PositionError = __webpack_require__(/*! ../../Errors/TextH3PositionError.js */ \"./src/Errors/TextH3PositionError.js?1d80\");\r\nconst TextError = __webpack_require__(/*! ../../Errors/TextError.js */ \"./src/Errors/TextError.js?ab10\");\r\nconst {findStartBlock, getBlock, getModValue, jsonParser} = __webpack_require__(/*! ../tools.js */ \"./src/Validators/tools.js-exposed\");\r\n\r\nconst HEADER_SIZES = ['h1', 'h2', 'h3',];\r\n\r\n/**\r\n * @param {string} originalBlockStr\r\n * @return {Array|{code: string, message: string, locality: {start: {line: number, column: number}, end: {line: number, column: number}}}[]}\r\n */\r\nmodule.exports = function (originalBlockStr) {\r\n    let regExpForm = /\"block\"(\\s){0,}:(\\s){0,}\"text\"/g;\r\n    let errors = [];\r\n    let prevHeaders = [];\r\n    while (true) {\r\n        let regExpFormResult = regExpForm.exec(originalBlockStr);\r\n        if (!regExpFormResult) {\r\n            break;\r\n        }\r\n        let startPositionBlock = findStartBlock(originalBlockStr, regExpFormResult.index);\r\n\r\n        let blockObj = jsonParser(getBlock(originalBlockStr, startPositionBlock));\r\n        let modValue = getModValue(blockObj, 'type');\r\n        if (modValue) {\r\n            let headerSize = HEADER_SIZES.indexOf(modValue);\r\n            if (headerSize !== -1) {\r\n                prevHeaders.forEach(function (header) {\r\n                    try {\r\n                        validateHeader(header, originalBlockStr, headerSize);\r\n                    } catch (e) {\r\n                        if (e instanceof TextError) {\r\n                            errors.push(e.getError());\r\n                        } else {\r\n                            throw e;\r\n                        }\r\n                    }\r\n                });\r\n                prevHeaders.push({\r\n                    position: startPositionBlock,\r\n                    size: headerSize\r\n                });\r\n            }\r\n        }\r\n    }\r\n    return errors;\r\n};\r\n\r\n/**\r\n * @param {{position:number, size: number}}header\r\n * @param {string} originalBlockStr\r\n * @param {number} currentHeaderSize\r\n */\r\nconst validateHeader = function (header, originalBlockStr, currentHeaderSize) {\r\n    if (header.size > currentHeaderSize) {\r\n        switch (HEADER_SIZES[header.size]) {\r\n            case 'h2':\r\n                throw new TextH2PositionError(originalBlockStr, header.position);\r\n            case 'h3':\r\n                throw new TextH3PositionError(originalBlockStr, header.position);\r\n        }\r\n    }\r\n};\n\n//# sourceURL=webpack:///./src/Validators/text/unitPositionValidator.js?");
+
+/***/ }),
+
+/***/ "./src/Validators/text/unitPositionValidator.js?6e9d":
+/*!******************************************************!*\
+  !*** ./src/Validators/text/unitPositionValidator.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"lint\"] = __webpack_require__(/*! -!./unitPositionValidator.js */ \"./src/Validators/text/unitPositionValidator.js?3f4d\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js-exposed\")))\n\n//# sourceURL=webpack:///./src/Validators/text/unitPositionValidator.js?");
 
 /***/ }),
 
@@ -731,7 +797,7 @@ eval("/* WEBPACK VAR INJECTION */(function(global) {module.exports = global[\"li
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const LinterError = __webpack_require__(/*! ../Errors/LinterError.js */ \"./src/Errors/LinterError.js-exposed\");\r\nconst {findStartBlock, getBlock, jsonParser, factoryElement, ELEMENTS, getModValue} = __webpack_require__(/*! ./tools.js */ \"./src/Validators/tools.js-exposed\");\r\nconst unitH1Validator = __webpack_require__(/*! ./text/unitH1Validator.js */ \"./src/Validators/text/unitH1Validator.js-exposed\");\r\n/**\r\n * @param {string} originalBlockStr\r\n * @return {Array|{code: string, message: string, locality: {start: {line: number, column: number}, end: {line: number, column: number}}}[]}\r\n */\r\nmodule.exports = function (originalBlockStr) {\r\n    let regExpForm = /\"block\"(\\s){0,}:(\\s){0,}\"text\"/g;\r\n    let errors = [];\r\n    errors = errors.concat(unitH1Validator(originalBlockStr));\r\n    // while (true) {\r\n    //     let regExpFormResult = regExpForm.exec(originalBlockStr);\r\n    //     if (!regExpFormResult) {\r\n    //         break;\r\n    //     }\r\n    //     // let startPositionBlock = findStartBlock(originalBlockStr, regExpFormResult.index);\r\n    //     // errors = errors.concat(validate(originalBlockStr, startPositionBlock));\r\n    // }\r\n    return errors;\r\n};\r\n\n\n//# sourceURL=webpack:///./src/Validators/textValidator.js?");
+eval("const LinterError = __webpack_require__(/*! ../Errors/LinterError.js */ \"./src/Errors/LinterError.js-exposed\");\r\nconst {findStartBlock, getBlock, jsonParser, factoryElement, ELEMENTS, getModValue} = __webpack_require__(/*! ./tools.js */ \"./src/Validators/tools.js-exposed\");\r\nconst unitH1Validator = __webpack_require__(/*! ./text/unitH1Validator.js */ \"./src/Validators/text/unitH1Validator.js?56f8\");\r\nconst unitPositionValidator = __webpack_require__(/*! ./text/unitPositionValidator.js */ \"./src/Validators/text/unitPositionValidator.js?6e9d\");\r\n/**\r\n * @param {string} originalBlockStr\r\n * @return {Array|{code: string, message: string, locality: {start: {line: number, column: number}, end: {line: number, column: number}}}[]}\r\n */\r\nmodule.exports = function (originalBlockStr) {\r\n    let regExpForm = /\"block\"(\\s){0,}:(\\s){0,}\"text\"/g;\r\n    let errors = [];\r\n    errors = errors.concat(unitH1Validator(originalBlockStr), unitPositionValidator(originalBlockStr));\r\n    // while (true) {\r\n    //     let regExpFormResult = regExpForm.exec(originalBlockStr);\r\n    //     if (!regExpFormResult) {\r\n    //         break;\r\n    //     }\r\n    //     // let startPositionBlock = findStartBlock(originalBlockStr, regExpFormResult.index);\r\n    //     // errors = errors.concat(validate(originalBlockStr, startPositionBlock));\r\n    // }\r\n    return errors;\r\n};\r\n\n\n//# sourceURL=webpack:///./src/Validators/textValidator.js?");
 
 /***/ }),
 
