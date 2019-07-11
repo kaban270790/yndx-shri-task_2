@@ -4,7 +4,7 @@ const VALIDATORS = [
 ];
 /**
  * @param {string} obj
- * @return {(function(string): (Array|{code: string, message: string, locality: {start: {line: number, column: number}, end: {line: number, column: number}}}[]))|*|Array}
+ * @return {{code: string, error: string, location: {start: {line: number, column: number}, end: {line: number, column: number}}}[]}
  */
 module.exports = function (obj) {
     return VALIDATORS.reduce((errors, validator) => {

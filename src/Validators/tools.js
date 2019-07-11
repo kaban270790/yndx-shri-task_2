@@ -35,7 +35,7 @@ const findStartBlock = function (json, position) {
 };
 
 /**
- * Считает на какой строке указанный символ
+ * Считает номер строки на которой начинается блок
  * @param {string} json
  * @param {number} position
  * @return {number}
@@ -69,7 +69,7 @@ const getBlock = function (json, position) {
 };
 
 /**
- * Считает сколько строк в строке
+ * Считает сколько строк в строке(блоке)
  * @param {string} json
  * @return {number}
  */
@@ -78,7 +78,7 @@ const countLines = function (json) {
 };
 
 /**
- * Считает сколько строк в строке
+ * Возвращает порядковый номер размера
  * @param {string} size
  * @return {number}
  */
@@ -86,22 +86,22 @@ const findSize = function (size) {
     return SIZES.indexOf(size);
 };
 /**
+ * Парсер json с преобразованием объекта content в массив, для простоты работы,
+ * т.к. периодически приходит массив, периодически как объект
  * @param string
  * @return Object
  */
 const jsonParser = function (string) {
     return JSON.parse(string, (key, value) => {
-        if (key === 'content') {
-            if (value instanceof Array) {
-            } else {
-                value = [value];
-            }
+        if (key === 'content' && !(value instanceof Array)) {
+            value = [value];
         }
         return value;
     })
 };
 
 /**
+ * Из блока получаем имя элемента
  * @param {{block: string, elem: string|undefined}} blockObj
  */
 const factoryElement = function (blockObj) {
@@ -113,6 +113,7 @@ const factoryElement = function (blockObj) {
 };
 
 /**
+ * Получить значение модификатора
  * @param {{mods: Object}} blockObj
  * @param {string} name
  *
@@ -125,6 +126,7 @@ const getModValue = function (blockObj, name) {
     return undefined;
 };
 /**
+ * Проверяет указанный модификатор как размер относительно указанного с указанным шагом
  * @param {{mods: Object}} blockObj
  * @param {string} referenceSize
  * @param {string} modName
